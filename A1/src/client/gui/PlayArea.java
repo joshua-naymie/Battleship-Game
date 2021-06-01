@@ -25,7 +25,7 @@ public class PlayArea extends JPanel
 	Dimension PANEL_DIMENSIONS = new Dimension(450, 450);
 
 	private static final
-	String BACKGROUND_IMG_DIR = "res/Client/Images/PlayArea.jpg";
+	String BACKGROUND_IMG_DIR = "res/Client/Images/PlayAreaBackground.jpg";
 	
 	private static final
 	int GRID_SIZE = 10;
