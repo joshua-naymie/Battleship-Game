@@ -87,6 +87,7 @@ public class Client extends Subject<ByteBuffer>
 		}
 	}
 	
+	//SET SOCKET
 	//----------------------------------------
 	
 	/**
