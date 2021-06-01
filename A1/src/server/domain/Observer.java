@@ -1,4 +1,4 @@
-package domain;
+package server.domain;
 
 public abstract class Observer
 {

@@ -1,6 +1,6 @@
-package domain;
+package server.domain;
 
-import gui.MainWindow;
+import server.gui.MainWindow;
 
 public class Server
 {

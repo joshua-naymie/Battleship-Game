@@ -1,4 +1,4 @@
-package domain;
+package server.domain;
 
 import java.io.*;
 import java.net.*;

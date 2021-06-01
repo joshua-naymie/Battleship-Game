@@ -1,4 +1,4 @@
-package gui;
+package server.gui;
 
 import java.awt.*;
 import java.io.FileInputStream;
@@ -21,8 +21,8 @@ public class MainWindow
 	String BUTTON_START_TEXT = "Start Server",
 		   BUTTON_STOP_TEXT = "Stop Server",
 		   TIMER_ZERO_TEXT = "00:00:00",
-		   START_IMAGE_DIR = "res/Images/Green.png",
-		   STOP_IMAGE_DIR = "res/Images/Red.png";
+		   START_IMAGE_DIR = "res/Server/Images/Green.png",
+		   STOP_IMAGE_DIR = "res/Server/Images/Red.png";
 	
 	private static final
 	int WINDOW_SIZE_X = 600,
