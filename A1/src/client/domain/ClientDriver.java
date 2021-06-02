@@ -22,7 +22,7 @@ public class ClientDriver
 //			
 //			String name = "Zapp Brannigan";
 //		
-//			//allocate +1 byte for NC.NAMECHANGE byte
+//			//allocate +1 byte for NC.NAME_CHANGE byte
 //			ByteBuffer buffer = ByteBuffer.allocate(1 + name.getBytes().length);
 //			buffer.put(NC.CHANGE_NAME);
 //			buffer.put(name.getBytes());
