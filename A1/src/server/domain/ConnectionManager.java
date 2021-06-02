@@ -3,70 +3,55 @@ package server.domain;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class ConnectionManager extends Subject<Client>
-{
-	private static final
-	int SERVER_PORT = 9992;
-	
+public class ConnectionManager extends Subject<Client> {
+	private static final int SERVER_PORT = 9992;
+
 	Thread thread;
-	
-	private
-	ServerSocket server;
-	
-	//CONSTRUCTOR
-	//----------------------------------------
-	
-	/**
-	 * Constructor for Connection Manager
-	 * Starts thread immediately
-	 */
-	public ConnectionManager()
-	{
-		initThread();
-	}
-	
-	//RUN
-	//----------------------------------------
+
+	private ServerSocket server;
+
+	// CONSTRUCTOR
+	// ----------------------------------------
 
 	/**
-	 * Overrides the run method
-	 * Initializes server socket and adds new clients
+	 * Constructor for Connection Manager Starts thread immediately
+	 */
+	public ConnectionManager() {
+		initThread();
+	}
+
+	// RUN
+	// ----------------------------------------
+
+	/**
+	 * Overrides the run method Initializes server socket and adds new clients
 	 */
 	@Override
-	public void run()
-	{
-		try
-		{
+	public void run() {
+		try {
 			server = new ServerSocket(SERVER_PORT);
-			
-			while(!Thread.currentThread().isInterrupted())
-			{
+
+			while (!Thread.currentThread().isInterrupted()) {
 				addNewClients();
 			}
-		}
-		catch(IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println("server socket error!!!");
 			e.printStackTrace();
 		}
 	}
-	
-	//ADD NEW CLIENTS
-	//----------------------------------------
-	
+
+	// ADD NEW CLIENTS
+	// ----------------------------------------
+
 	/**
 	 * Waits for client connections, creates a new Client, notifies ClientManager
 	 */
-	private void addNewClients()
-	{
-		try
-		{
+	private void addNewClients() {
+		try {
 			state = new Client(server.accept());
 
 			notifyObservers();
-		}
-		catch(IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println("accept new client error!");
 			e.printStackTrace();
 		}
