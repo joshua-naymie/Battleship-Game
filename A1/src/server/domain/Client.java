@@ -6,7 +6,6 @@ import java.net.*;
 import java.nio.ByteBuffer;
 
 // Mohamed here, HELLOO
-// JDAWG IN THE HOOOSE
 
 public class Client extends Subject<ByteBuffer> {
 	private static final String SOCKET_CLOSED_ERROR = "ERROR: socket is closed!",
