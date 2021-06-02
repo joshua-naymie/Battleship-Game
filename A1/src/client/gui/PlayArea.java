@@ -8,8 +8,8 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import client.domain.PlayAreaOverlayColor;
 import client.domain.Ship;
-import client.gui.PlayAreaCell.PlayAreaCellColor;
 
 public class PlayArea extends JPanel
 {
@@ -203,15 +203,15 @@ public class PlayArea extends JPanel
 		
 		checkIfValid();
 		
-		PlayAreaCellColor color;
+		PlayAreaOverlayColor color;
 		
 		if(isValid)
 		{
-			color = PlayAreaCellColor.GREEN;
+			color = PlayAreaOverlayColor.GREEN;
 		}
 		else
 		{
-			color = PlayAreaCellColor.RED;
+			color = PlayAreaOverlayColor.RED;
 		}
 		
 		for(PlayAreaCell gridCell : currentSelection)

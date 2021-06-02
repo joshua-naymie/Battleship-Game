@@ -3,18 +3,13 @@ package client.gui;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import client.domain.PlayAreaOverlayColor;
+
 public class PlayAreaCell extends JPanel
 {
-	public enum PlayAreaCellColor
-	{
-		RED,
-		GREEN
-	}
-	
 	/**
 	 * 
 	 */
@@ -103,7 +98,7 @@ public class PlayAreaCell extends JPanel
 	 * Assigns the color of the overlay
 	 * @param color the color of the overlay
 	 */
-	public void setOverlayColor(PlayAreaCellColor color)
+	public void setOverlayColor(PlayAreaOverlayColor color)
 	{
 		switch(color)
 		{
@@ -123,7 +118,7 @@ public class PlayAreaCell extends JPanel
 	 * Marks this cell as having an overlay, assigns the overlay color and repaints this cell
 	 * @param color
 	 */
-	public void addOverlay(PlayAreaCellColor color)
+	public void addOverlay(PlayAreaOverlayColor color)
 	{
 		setOverlayColor(color);
 		hasOverlay = true;
