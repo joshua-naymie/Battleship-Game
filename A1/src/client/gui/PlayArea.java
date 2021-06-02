@@ -33,6 +33,21 @@ public class PlayArea extends JPanel
 	private static
 	BufferedImage backgroundImage;
 	
+	//CLASS CONSTRUCTOR
+	//----------------------------------------
+	
+	static
+	{
+		try
+		{
+			backgroundImage = ImageIO.read(new FileInputStream(BACKGROUND_IMG_DIR));
+		}
+		catch(IOException exception)
+		{
+			exception.printStackTrace();
+		}
+	}
+	
 	//INSTANCE FIELDS
 	//----------------------------------------
 	
@@ -76,15 +91,6 @@ public class PlayArea extends JPanel
 	 */
 	private void initPanel()
 	{
-		try
-		{
-			backgroundImage = ImageIO.read(new FileInputStream(BACKGROUND_IMG_DIR));
-		}
-		catch(IOException exception)
-		{
-			exception.printStackTrace();
-		}
-		
 		this.setLayout(new GridLayout(GRID_SIZE, GRID_SIZE));
 		this.setPreferredSize(PANEL_DIMENSIONS);
 		this.setMinimumSize(PANEL_DIMENSIONS);

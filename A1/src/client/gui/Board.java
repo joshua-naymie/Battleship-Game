@@ -34,7 +34,7 @@ public class Board extends JPanel
 	
 	private static
 	Font partialFont,
-	 	 smallFont;
+	 	 labelFont;
 	
 	//CLASS CONSTRUCTOR
 	//----------------------------------------
@@ -46,7 +46,7 @@ public class Board extends JPanel
 		{			
 			InputStream stream = new BufferedInputStream(new FileInputStream(MILITARY_FONT_DIR));
 			partialFont = Font.createFont(Font.TRUETYPE_FONT, stream);
-			smallFont = partialFont.deriveFont(Font.PLAIN, 28);
+			labelFont = partialFont.deriveFont(Font.PLAIN, 28);
 		}
 		catch(FontFormatException | IOException e)
 		{
@@ -110,7 +110,7 @@ public class Board extends JPanel
 			label.setBackground(LABEL_COLOR);
 			label.setForeground(Color.WHITE);
 			label.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			label.setFont(smallFont);
+			label.setFont(labelFont);
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setVerticalAlignment(JLabel.CENTER);
 			label.setPreferredSize(CELL_DIMENSIONS);
@@ -128,7 +128,7 @@ public class Board extends JPanel
 			label.setBackground(LABEL_COLOR);
 			label.setForeground(Color.WHITE);
 			label.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-			label.setFont(smallFont);
+			label.setFont(labelFont);
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setVerticalAlignment(JLabel.CENTER);
 			label.setPreferredSize(CELL_DIMENSIONS);

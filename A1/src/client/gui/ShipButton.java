@@ -53,7 +53,7 @@ public class ShipButton extends JButton
 	
 	/**
 	 * Gets the Ship the ShipButton represents
-	 * @return
+	 * @return the Ship the ShipButton represents
 	 */
 	public Ship getShip()
 	{
@@ -65,7 +65,7 @@ public class ShipButton extends JButton
 	
 	/**
 	 * Assigns the Board this ShipButton is assigned to
-	 * @param board
+	 * @param board the Board this ShipButton is assigned to
 	 */
 	private void setBoard(Board board)
 	{

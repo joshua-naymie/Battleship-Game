@@ -59,7 +59,7 @@ public class ShipButtonArea extends JPanel
 	
 	/**
 	 * Initializes and configures all components for this panel
-	 * @param board
+	 * @param board the Board the ShipButtons are assigned to
 	 */
 	private void initComponents(Board board)
 	{

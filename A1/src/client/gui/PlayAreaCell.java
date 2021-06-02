@@ -3,6 +3,7 @@ package client.gui;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -20,13 +21,13 @@ public class PlayAreaCell extends JPanel
 	//----------------------------------------
 	
 	private static final
-	int PANEL_SIZE = 45,
+	int CELL_SIZE = 45,
 		MARKED_TRANSPARENCY = 100;
 	
 	private static final
-	Color MARKED_RED = new Color(255, 0, 0, MARKED_TRANSPARENCY),
-		  MARKED_GREEN = new Color(0, 255, 0, MARKED_TRANSPARENCY),
-		  MARKED_GREY = new Color(127, 127, 127),
+	Color OVERLAY_RED = new Color(255, 0, 0, MARKED_TRANSPARENCY),
+		  OVERLAY_GREEN = new Color(0, 255, 0, MARKED_TRANSPARENCY),
+		  SHIP_GREY = new Color(127, 127, 127),
 		  TRANSPARENT = new Color(0, 0, 0, 0);
 	
 	private static final
@@ -61,7 +62,7 @@ public class PlayAreaCell extends JPanel
 	PlayArea playArea;
 	
 	private
-	Color currentColor = MARKED_GREEN;
+	Color currentColor = OVERLAY_GREEN;
 	
 	private
 	int posX,
@@ -103,11 +104,11 @@ public class PlayAreaCell extends JPanel
 		switch(color)
 		{
 			case RED:
-				currentColor = MARKED_RED;
+				currentColor = OVERLAY_RED;
 				break;
 				
 			case GREEN:
-				currentColor = MARKED_GREEN;
+				currentColor = OVERLAY_GREEN;
 				break;
 		}
 	}
@@ -116,7 +117,7 @@ public class PlayAreaCell extends JPanel
 	
 	/**
 	 * Marks this cell as having an overlay, assigns the overlay color and repaints this cell
-	 * @param color
+	 * @param color the color of the overlay to add
 	 */
 	public void addOverlay(PlayAreaOverlayColor color)
 	{
@@ -264,11 +265,11 @@ public class PlayAreaCell extends JPanel
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
-		// Draws a ship in this cell (gray)
+		// Draws a ship in this cell (grey)
 		if(hasShip)
 		{
-			g2.setColor(MARKED_GREY);
-			g2.fillRect(0, 0, PANEL_SIZE, PANEL_SIZE);
+			g2.setColor(SHIP_GREY);
+			g2.fillRect(0, 0, CELL_SIZE, CELL_SIZE);
 		}
 		
 		// Draws the miss image
@@ -286,12 +287,12 @@ public class PlayAreaCell extends JPanel
 		if(hasOverlay)
 		{
 			g2.setColor(currentColor);
-			g2.fillRect(0, 0, PANEL_SIZE, PANEL_SIZE);
+			g2.fillRect(0, 0, CELL_SIZE, CELL_SIZE);
 		}
 		
 		// Draws the grid border
 		g2.setColor(Color.BLACK);
-		g2.drawRect(0, 0, PANEL_SIZE, PANEL_SIZE);
+		g2.drawRect(0, 0, CELL_SIZE, CELL_SIZE);
 		
 		g2.dispose();
 	}

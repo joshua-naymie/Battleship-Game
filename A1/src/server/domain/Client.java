@@ -137,7 +137,7 @@ public class Client extends Subject<ByteBuffer>
 	
 	/**
 	 * Gets the clients DataInputStream
-	 * @return
+	 * @return the clients DataInputStream
 	 */
 	public DataInputStream getInputStream()
 	{
