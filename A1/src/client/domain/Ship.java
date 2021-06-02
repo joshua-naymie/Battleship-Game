@@ -13,6 +13,9 @@ public class Ship
 	private
 	int length;
 	
+	private
+	boolean isPlaced = false;
+	
 	//CONSTRUCTOR
 	//----------------------------------------
 	
@@ -94,5 +97,41 @@ public class Ship
 	public PlayAreaCell[] getCells()
 	{
 		return cells;
+	}
+	
+	//IS PLACED
+	//----------------------------------------
+	
+	/**
+	 * Sets whether the ship is placed on the board
+	 * @param isPlaced whether the ship is placed on the board
+	 */
+	public void setPlaced(boolean isPlaced)
+	{
+		this.isPlaced = isPlaced;
+		
+		if(!isPlaced && cells != null)
+		{
+			clearCells();
+		}
+	}
+	
+	//--------------------
+	
+	/**
+	 * Gets whether the ship is placed on the board
+	 * @return returns true if the ship has been placed on the board
+	 */
+	public boolean isPlaced()
+	{
+		return isPlaced;
+	}
+	
+	private void clearCells()
+	{
+		for (PlayAreaCell cell : cells)
+		{
+			cell.setShip(false);
+		}
 	}
 }

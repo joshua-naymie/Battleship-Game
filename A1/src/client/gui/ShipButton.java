@@ -80,6 +80,7 @@ public class ShipButton extends JButton
 	 */
 	public void buttonClicked()
 	{
+		ship.setPlaced(false);
 		board.setShip(ship);
 	}
 }

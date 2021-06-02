@@ -261,6 +261,9 @@ public class PlayArea extends JPanel
 			{
 				gridCell.setShip(true);
 			}
+			
+			currentShip.setCells(currentSelection);
+			currentShip.setPlaced(true);
 		}
 	}
 	
@@ -275,6 +278,8 @@ public class PlayArea extends JPanel
 	{
 		currentShip = ship;
 		setLength(currentShip.getLength());
+		
+		this.repaint();
 	}
 	
 	//CHECK IF VALID
