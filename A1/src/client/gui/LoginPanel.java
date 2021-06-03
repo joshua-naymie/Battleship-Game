@@ -255,6 +255,6 @@ public class LoginPanel extends JPanel
 		Graphics2D g2 = (Graphics2D) g;
 		
 		Dimension size = getParent().getSize();
-		g2.drawImage(backgroundImage, 0, 0, size.width, size.height, this);
+//		g2.drawImage(backgroundImage, 0, 0, size.width, size.height, this);
 	}
 }

@@ -36,7 +36,7 @@ public class MainWindow
 		window.setResizable(false);
 		window.setLocationRelativeTo(null);
 		
-//		window.add(login);		// Uncomment for login window
+		window.add(login);		// Uncomment for login window
 		
 		Board board = new Board();
 		JPanel playerPanel = new JPanel();
@@ -44,7 +44,7 @@ public class MainWindow
 		playerPanel.add(board, BorderLayout.NORTH);
 		playerPanel.add(new ShipButtonArea(board));
 		
-		window.add(playerPanel);	// Comment for login window
+//		window.add(playerPanel);	// Comment for login window
 		
 		window.setVisible(true);
 	}
