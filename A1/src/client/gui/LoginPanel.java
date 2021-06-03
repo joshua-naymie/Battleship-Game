@@ -10,6 +10,10 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import exceptions.PortNumberIsNullException;
+import exceptions.ServerAddressIsNullException;
+import exceptions.UserNameIsNullException;
+
 public class LoginPanel extends JPanel {
 	/**
 	 * 
@@ -68,8 +72,8 @@ public class LoginPanel extends JPanel {
 
 	private final JLabel[] allLabels = { usernameLabel, serverAddressLabel, serverPortLabel };
 
-	private JTextField username = new JTextField("Player"), serverAddress = new JTextField("127.0.0.1"),
-			serverPort = new JTextField("9992");
+	private JTextField username = new JTextField(), serverAddress = new JTextField("127.0.0.1"),
+			serverPort = new JTextField("6969");
 
 	private final JTextField[] allTextFields = { username, serverAddress, serverPort };
 
@@ -165,14 +169,40 @@ public class LoginPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				isLoggedIn = true;
 				try {
-					MainWindow.initWindow();
-				} catch (IOException e1) {
+					launchGame(username.getText(), serverAddress.getText(), serverPort.getText());
+
+				} catch (Exception ex) {
+
+					if (ex instanceof UserNameIsNullException) {
+						JOptionPane.showMessageDialog(null, "Please Enter Your name");
+					} else if (ex instanceof ServerAddressIsNullException) {
+						JOptionPane.showMessageDialog(null, "Please Enter A Valid Address");
+					} else if (ex instanceof PortNumberIsNullException) {
+						JOptionPane.showMessageDialog(null, "Please Enter the Port Number");
+					}
+
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+
 				}
 
 			}
 		});
+
+	}
+
+	private void launchGame(String userName, String serverAdress, String portNumber)
+			throws UserNameIsNullException, ServerAddressIsNullException, IOException {
+
+		if (userName.isEmpty() || userName == null || userName.equals("")) {
+			System.out.println("Username is null");
+			throw new UserNameIsNullException();
+		} else if (serverAdress.isEmpty() || serverAdress == null) {
+			throw new ServerAddressIsNullException();
+		} else if (portNumber.isEmpty() || portNumber == null) {
+			throw new ServerAddressIsNullException();
+		} else {
+			MainWindow.initWindow();
+		}
 	}
 
 	// INIT LAYOUT

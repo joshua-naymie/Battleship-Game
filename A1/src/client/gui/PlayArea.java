@@ -8,6 +8,7 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import client.domain.NetworkC;
 import client.domain.PlayAreaOverlayColor;
 import client.domain.Ship;
 
@@ -143,6 +144,41 @@ public class PlayArea extends JPanel {
 						@Override
 						public void mouseClicked(MouseEvent event) {
 							;
+						}
+					});
+				} else {
+
+					newCell.addMouseListener(new MouseListener() {
+
+						@Override
+						public void mouseReleased(MouseEvent e) {
+
+						}
+
+						@Override
+						public void mousePressed(MouseEvent event) {
+							// send attack here!
+							System.out.println("pressed");
+							PlayAreaCell cell = (PlayAreaCell) event.getSource();
+
+							// the color will depend on the server request, if it was a hit or miss
+							cell.setOriginCell();
+						}
+
+						@Override
+						public void mouseExited(MouseEvent event) {
+
+						}
+
+						@Override
+						public void mouseEntered(MouseEvent event) {
+
+						}
+
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							// TODO Auto-generated method stub
+
 						}
 					});
 				}
