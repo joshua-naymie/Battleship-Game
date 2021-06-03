@@ -26,6 +26,8 @@ public class Board extends JPanel {
 
 	private static Font partialFont, labelFont;
 
+	boolean opponent;
+
 	// CLASS CONSTRUCTOR
 	// ----------------------------------------
 
@@ -53,10 +55,15 @@ public class Board extends JPanel {
 	/**
 	 * Constructor for Board
 	 */
-	public Board() {
+	public Board(boolean opponent) {
+
 		initPanel();
+
+		this.opponent = opponent;
+
 		initComponents();
 		initGrid();
+
 	}
 
 	// INIT PANEL
@@ -81,8 +88,8 @@ public class Board extends JPanel {
 	 * Initializes all components to be added to this panel
 	 */
 	private void initComponents() {
-		playArea = new PlayArea();
-
+		playArea = new PlayArea(!opponent);
+		
 		// Setup X-grid label [1-10]
 		for (int i = 0; i < GRID_SIZE; i++) {
 			JLabel label = new JLabel(String.valueOf(i + 1));
@@ -155,8 +162,14 @@ public class Board extends JPanel {
 		constraints.gridy = 3;
 		constraints.gridheight = GRID_SIZE;
 		constraints.gridwidth = GRID_SIZE;
-
 		this.add(playArea, constraints);
+		
+		if (!opponent) {
+		
+		}else {
+			
+		}
+
 	}
 
 	// SET SHIP

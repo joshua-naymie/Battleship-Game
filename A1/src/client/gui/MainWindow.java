@@ -35,11 +35,15 @@ public class MainWindow {
 
 			window.remove(login);
 
-			Board board = new Board();
+			Board meBoard = new Board(true);
+			Board opponentBoard = new Board(false);
 			JPanel playerPanel = new JPanel();
 			playerPanel.setLayout(new BorderLayout());
-			playerPanel.add(board, BorderLayout.NORTH);
-			playerPanel.add(new ShipButtonArea(board));
+
+			playerPanel.add(meBoard, BorderLayout.WEST);
+			playerPanel.add(opponentBoard, BorderLayout.EAST);
+
+			playerPanel.add(new ShipButtonArea(meBoard));
 			window.add(playerPanel);
 			window.setVisible(true);
 
