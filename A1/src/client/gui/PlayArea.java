@@ -222,8 +222,14 @@ public class PlayArea extends JPanel {
 				gridCell.setShip(true);
 			}
 
-			currentShip.setCells(currentSelection);
-			currentShip.setPlaced(true);
+			try {
+				currentShip.setCells(currentSelection);
+				currentShip.setPlaced(true);
+
+			} catch (NullPointerException e) {
+				JOptionPane.showMessageDialog(null, "Please choose a ship to place");
+			}
+
 		}
 	}
 
