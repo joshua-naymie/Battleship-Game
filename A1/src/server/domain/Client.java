@@ -5,8 +5,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
 
-// Mohamed here, HELLOO
-// Jordan was here
+
 
 public class Client extends Subject<ByteBuffer> {
 	private static final String SOCKET_CLOSED_ERROR = "ERROR: socket is closed!",
@@ -103,6 +102,10 @@ public class Client extends Subject<ByteBuffer> {
 		} catch (IOException e) {
 			System.out.println("CLIENT SOCKET ERROR");
 		}
+	}
+
+	public Socket getSocket() {
+		return socket;
 	}
 
 	// INPUT-STREAM

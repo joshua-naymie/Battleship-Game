@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.Socket;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,6 +14,7 @@ import javax.swing.border.Border;
 import exceptions.PortNumberIsNullException;
 import exceptions.ServerAddressIsNullException;
 import exceptions.UserNameIsNullException;
+import server.domain.Client;
 
 public class LoginPanel extends JPanel {
 	/**
@@ -44,8 +46,10 @@ public class LoginPanel extends JPanel {
 	private static BufferedImage backgroundImage;
 
 	private static Font partialFont, bigFont, smallFont;
+	public static Client clientLoggedIn;
 
-	public boolean isLoggedIn;
+	public static boolean isLoggedIn;
+
 	// CLASS CONSTRUCTOR
 	// ----------------------------------------
 
@@ -192,16 +196,34 @@ public class LoginPanel extends JPanel {
 
 	private void launchGame(String userName, String serverAdress, String portNumber)
 			throws UserNameIsNullException, ServerAddressIsNullException, IOException {
+		
+		
+		
 
 		if (userName.isEmpty() || userName == null || userName.equals("")) {
-			System.out.println("Username is null");
+
 			throw new UserNameIsNullException();
 		} else if (serverAdress.isEmpty() || serverAdress == null) {
 			throw new ServerAddressIsNullException();
 		} else if (portNumber.isEmpty() || portNumber == null) {
 			throw new ServerAddressIsNullException();
 		} else {
+
 			MainWindow.initWindow();
+			//MainWindow window = new MainWindow();
+			
+			
+			System.out.println("AFTER MAIN WINDOW INIT");
+			Socket socket = new Socket(serverAdress, Integer.valueOf(portNumber));
+			System.out.println("The socket in login panel " + socket.toString());
+
+			clientLoggedIn = new Client(socket);
+			System.out.println("Client in loginpanel " + clientLoggedIn.toString());
+
+			clientLoggedIn.setName(userName);
+
+			System.out.println("GAME LAUNCHED");
+
 		}
 	}
 
