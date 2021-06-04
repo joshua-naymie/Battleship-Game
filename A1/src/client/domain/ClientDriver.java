@@ -16,22 +16,18 @@ public class ClientDriver {
 
 //		Commented section below demonstrates changing client name with server
 
-		System.out.println("BEFORE IF STATMENT");
-		// LoginPanel.isLoggedIn=true;
-		System.out.println(LoginPanel.isLoggedIn);
 		try {
 
 			while (!LoginPanel.isLoggedIn) {
-				System.out.println("WAITING FOR THE DAMN USER TO LOG IN");
+
 			}
 			System.out.println("INSIDE IF STATMENT");
-			// Socket socket = new Socket("127.0.0.1", 9992);
-			Socket socket = LoginPanel.clientLoggedIn.getSocket();
+			Socket socket = new Socket("127.0.0.1", 9992);
 			System.out.println("Socket :" + socket.toString());
 			DataInputStream input = new DataInputStream(socket.getInputStream());
 			DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-			// String userName = "Mohamed";
 			String userName = LoginPanel.clientLoggedIn.getName();
+			System.out.println(LoginPanel.clientLoggedIn.toString());
 			System.out.println("Username " + userName);
 			// allocate +1 byte for NC.NAME_CHANGE byte
 			ByteBuffer buffer = ByteBuffer.allocate(1 + userName.getBytes().length);
