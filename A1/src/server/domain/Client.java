@@ -155,7 +155,7 @@ public class Client extends Subject<ByteBuffer>
 
 	// MANAGER
 	// ----------------------------------------
-	
+
 	/**
 	 * Assigns the ClientManager for this client
 	 * @param manager the ClientManager for this client
@@ -261,6 +261,20 @@ public class Client extends Subject<ByteBuffer>
 	// DATA STREAMS
 	// ----------------------------------------
 
+	public boolean tryWriteToClient(byte[] message)
+	{
+		if(tryWriteLength(message.length))
+		{
+			if(tryWriteDataStream(message))
+			{
+				return true;
+			}
+			
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Tries to read the length of the incoming message Returns 0 if an error is
 	 * encountered
@@ -286,6 +300,26 @@ public class Client extends Subject<ByteBuffer>
 		}
 
 		return 0;
+	}
+	
+	// --------------------
+
+	/**
+	 * Attempts to write the length of the outgoing message to the client
+	 * @param length the length of the message about to be sent
+	 * @return returns true if length successfuly sent, false if not
+	 */
+	private boolean tryWriteLength(int length)
+	{
+		try
+		{
+			clientOutput.writeInt(length);
+			return true;
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	// ----------------------------------------

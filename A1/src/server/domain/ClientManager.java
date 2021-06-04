@@ -79,7 +79,7 @@ public class ClientManager extends Observer
 				}
 			}
 
-			if (isValid)
+			if(isValid)
 			{
 				idFound = true;
 			} else
