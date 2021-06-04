@@ -5,14 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.Socket;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import exceptions.PortNumberIsNullException;
-import exceptions.ServerAddressIsNullException;
 import exceptions.UserNameIsNullException;
+import server.domain.Client;
 
 public class LoginPanel extends JPanel {
 	/**
@@ -44,8 +44,10 @@ public class LoginPanel extends JPanel {
 	private static BufferedImage backgroundImage;
 
 	private static Font partialFont, bigFont, smallFont;
+	public static Client clientLoggedIn;
 
-	public boolean isLoggedIn;
+	public static boolean isLoggedIn;
+
 	// CLASS CONSTRUCTOR
 	// ----------------------------------------
 
@@ -73,7 +75,7 @@ public class LoginPanel extends JPanel {
 	private final JLabel[] allLabels = { usernameLabel, serverAddressLabel, serverPortLabel };
 
 	private JTextField username = new JTextField(), serverAddress = new JTextField("127.0.0.1"),
-			serverPort = new JTextField("6969");
+			serverPort = new JTextField("9992");
 
 	private final JTextField[] allTextFields = { username, serverAddress, serverPort };
 
@@ -158,9 +160,11 @@ public class LoginPanel extends JPanel {
 
 		serverAddress.setAlignmentX(LEFT_ALIGNMENT);
 		serverAddress.setMargin(TEXT_FIELD_INSET);
+		serverAddress.setEditable(false);
 
 		serverPort.setAlignmentX(LEFT_ALIGNMENT);
 		serverPort.setMargin(TEXT_FIELD_INSET);
+		serverPort.setEditable(false);
 
 		loginButton.setAlignmentX(LEFT_ALIGNMENT);
 		loginButton.addActionListener(new ActionListener() {
@@ -169,16 +173,12 @@ public class LoginPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				isLoggedIn = true;
 				try {
-					launchGame(username.getText(), serverAddress.getText(), serverPort.getText());
+					launchGame(username.getText());
 
 				} catch (Exception ex) {
 
 					if (ex instanceof UserNameIsNullException) {
 						JOptionPane.showMessageDialog(null, "Please Enter Your name");
-					} else if (ex instanceof ServerAddressIsNullException) {
-						JOptionPane.showMessageDialog(null, "Please Enter A Valid Address");
-					} else if (ex instanceof PortNumberIsNullException) {
-						JOptionPane.showMessageDialog(null, "Please Enter the Port Number");
 					}
 
 					// TODO Auto-generated catch block
@@ -190,18 +190,18 @@ public class LoginPanel extends JPanel {
 
 	}
 
-	private void launchGame(String userName, String serverAdress, String portNumber)
-			throws UserNameIsNullException, ServerAddressIsNullException, IOException {
+	private void launchGame(String userName) throws UserNameIsNullException, IOException {
 
 		if (userName.isEmpty() || userName == null || userName.equals("")) {
-			System.out.println("Username is null");
+
 			throw new UserNameIsNullException();
-		} else if (serverAdress.isEmpty() || serverAdress == null) {
-			throw new ServerAddressIsNullException();
-		} else if (portNumber.isEmpty() || portNumber == null) {
-			throw new ServerAddressIsNullException();
 		} else {
+
 			MainWindow.initWindow();
+			Socket socket = new Socket("127.0.0.1", 9992);
+			clientLoggedIn = new Client(socket);
+			clientLoggedIn.setName(userName);
+
 		}
 	}
 

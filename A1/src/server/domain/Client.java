@@ -5,8 +5,7 @@ import java.math.BigInteger;
 import java.net.*;
 import java.nio.ByteBuffer;
 
-// Mohamed here, HELLOO
-// Jordan was here
+
 
 public class Client extends Subject<byte[]>
 {
@@ -133,6 +132,7 @@ public class Client extends Subject<byte[]>
 		}
 	}
 
+<<<<<<< HEAD
 	// ID
 	// ----------------------------------------
 
@@ -173,6 +173,10 @@ public class Client extends Subject<byte[]>
 	public boolean hasUnreadMessage()
 	{
 		return unreadMessage;
+=======
+	public Socket getSocket() {
+		return socket;
+>>>>>>> branch 'master' of https://github.com/joshua-naymie/A1
 	}
 
 	// INPUT-STREAM
