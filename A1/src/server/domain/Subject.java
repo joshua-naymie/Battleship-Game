@@ -2,7 +2,8 @@ package server.domain;
 
 import java.util.LinkedList;
 
-public abstract class Subject<E> implements Runnable {
+public abstract class Subject<E> implements Runnable
+{
 	protected LinkedList<Observer> observers = new LinkedList<Observer>();
 
 	Thread thread;
@@ -14,10 +15,10 @@ public abstract class Subject<E> implements Runnable {
 
 	/**
 	 * Adds an Observer to this Subject
-	 * 
 	 * @param observer the Observer to add
 	 */
-	public void addObserver(Observer observer) {
+	public void addObserver(Observer observer)
+	{
 		observers.add(observer);
 	}
 
@@ -25,10 +26,10 @@ public abstract class Subject<E> implements Runnable {
 
 	/**
 	 * Removes an Observer from this Subject
-	 * 
 	 * @param observer the Observer to remove
 	 */
-	public void removeObserver(Observer observer) {
+	public void removeObserver(Observer observer)
+	{
 		observers.remove(observer);
 	}
 
@@ -38,8 +39,10 @@ public abstract class Subject<E> implements Runnable {
 	/**
 	 * Notifies all observers that state has changed
 	 */
-	public void notifyObservers() {
-		for (Observer observer : observers) {
+	public void notifyObservers()
+	{
+		for (Observer observer : observers)
+		{
 			observer.update();
 		}
 	}
@@ -49,10 +52,10 @@ public abstract class Subject<E> implements Runnable {
 
 	/**
 	 * Gets the current State
-	 * 
 	 * @return the current State
 	 */
-	public E getState() {
+	public E getState()
+	{
 		return state;
 	}
 
@@ -62,7 +65,8 @@ public abstract class Subject<E> implements Runnable {
 	/**
 	 * Initializes and starts the Thread
 	 */
-	protected void initThread() {
+	protected void initThread()
+	{
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -72,7 +76,8 @@ public abstract class Subject<E> implements Runnable {
 	/**
 	 * Interrupts the thread
 	 */
-	public void interrupt() {
+	public void interrupt()
+	{
 		thread.interrupt();
 	}
 }

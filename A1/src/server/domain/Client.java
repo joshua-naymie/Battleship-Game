@@ -1,14 +1,14 @@
 package server.domain;
 
 import java.io.*;
-
+import java.math.BigInteger;
 import java.net.*;
 import java.nio.ByteBuffer;
 
 // Mohamed here, HELLOO
 // Jordan was here
 
-public class Client extends Subject<ByteBuffer>
+public class Client extends Subject<byte[]>
 {
 	private static final String SOCKET_CLOSED_ERROR = "ERROR: socket is closed!",
 			SOCKET_NULL_ERROR = "ERROR: socket is null!";
@@ -25,7 +25,9 @@ public class Client extends Subject<ByteBuffer>
 
 	private short id;
 
-	private boolean lookingForMatch = false, clientConnected = true;
+	private boolean lookingForMatch = false,
+					clientConnected = true,
+					unreadMessage = false;
 
 	// CONSTRUCTOR
 	// ----------------------------------------
@@ -63,18 +65,20 @@ public class Client extends Subject<ByteBuffer>
 				if (length > 0)
 				{
 					// Reads client byte stream
-					byte[] input = tryReadDataStream(length);
+					byte[] message = tryReadDataStream(length);
 					// Creates a ByteBuffer of data only (offsets first byte)
-					ByteBuffer buffer = ByteBuffer.wrap(input, 1, length - 1);
+					ByteBuffer buffer = ByteBuffer.wrap(message);
+					buffer.put(0, BigInteger.valueOf(id).toByteArray());
 
 					// **NOT COMPLETE**
 					// Determines action based on first byte
-					switch (input[0])
+					switch (message[0])
 					{
-//						case NC.UPDATE_OBSERVERS:
-//							state = buffer;
-//							notifyObservers();
-//							break;
+						case NC.SHIP_PLACEMENT:
+							state = message;
+							unreadMessage = true;
+							notifyObservers();
+							break;
 
 						case NC.SET_NAME:
 							byte[] name = new byte[buffer.remaining()];
@@ -84,8 +88,7 @@ public class Client extends Subject<ByteBuffer>
 
 						case NC.END_SESSION:
 							clientConnected = false;
-							tryWriteDataStream(new byte[]
-							{ NC.END_SESSION });
+							tryWriteDataStream(new byte[] { NC.END_SESSION });
 							closeConnections();
 							break;
 					}
@@ -163,6 +166,13 @@ public class Client extends Subject<ByteBuffer>
 	private void setManager(ClientManager manager)
 	{
 		this.manager = manager;
+	}
+	
+	// ----------------------------------------
+	
+	public boolean hasUnreadMessage()
+	{
+		return unreadMessage;
 	}
 
 	// INPUT-STREAM
@@ -263,18 +273,18 @@ public class Client extends Subject<ByteBuffer>
 
 	public boolean tryWriteToClient(byte[] message)
 	{
-		if(tryWriteLength(message.length))
+		if (tryWriteLength(message.length))
 		{
-			if(tryWriteDataStream(message))
+			if (tryWriteDataStream(message))
 			{
 				return true;
 			}
-			
+
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * Tries to read the length of the incoming message Returns 0 if an error is
 	 * encountered
@@ -301,7 +311,7 @@ public class Client extends Subject<ByteBuffer>
 
 		return 0;
 	}
-	
+
 	// --------------------
 
 	/**
@@ -388,5 +398,25 @@ public class Client extends Subject<ByteBuffer>
 		{
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void notifyObservers()
+	{
+		for (Observer observer : observers)
+		{
+			observer.update(this);
+		}
+	}
+
+	@Override
+	public boolean equals(Object objectToCompare)
+	{
+		if (objectToCompare instanceof Client)
+		{
+			return ((Client) objectToCompare).getId() == this.getId();
+		}
+
+		return false;
 	}
 }

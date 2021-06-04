@@ -131,4 +131,10 @@ public class ClientManager extends Observer
 			}
 		}
 	}
+
+	@Override
+	public void update(Subject<?> subject)
+	{
+		;
+	}
 }
