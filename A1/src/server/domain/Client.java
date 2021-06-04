@@ -13,6 +13,8 @@ public class Client extends Subject<ByteBuffer>
 	private static final String SOCKET_CLOSED_ERROR = "ERROR: socket is closed!",
 			SOCKET_NULL_ERROR = "ERROR: socket is null!";
 
+	private ClientManager manager;
+
 	private Socket socket;
 
 	private DataInputStream clientInput;
@@ -20,7 +22,7 @@ public class Client extends Subject<ByteBuffer>
 	private DataOutputStream clientOutput;
 
 	private String name;
-	
+
 	private short id;
 
 	private boolean lookingForMatch = false, clientConnected = true;
@@ -33,9 +35,11 @@ public class Client extends Subject<ByteBuffer>
 	 * @param clientSocket the socket the client is connected through
 	 * @throws SocketException thrown if socket is null or closed
 	 */
-	public Client(Socket clientSocket, short id) throws SocketException
+	public Client(Socket clientSocket, short id, ClientManager manager) throws SocketException
 	{
 		setSocket(clientSocket);
+		setId(id);
+		setManager(manager);
 		initThread();
 	}
 
@@ -49,41 +53,49 @@ public class Client extends Subject<ByteBuffer>
 	@Override
 	public void run()
 	{
-		while (clientConnected)
+		if (id > NC.ERROR)
 		{
-			// Get length of client message
-			int length = tryReadLength();
-
-			if (length > 0)
+			while (clientConnected)
 			{
-				// Reads client byte stream
-				byte[] input = tryReadDataStream(length);
-				// Creates a ByteBuffer of data only (offsets first byte)
-				ByteBuffer buffer = ByteBuffer.wrap(input, 1, length - 1);
+				// Get length of client message
+				int length = tryReadLength();
 
-				// **NOT COMPLETE**
-				// Determines action based on first byte
-				switch (input[0])
+				if (length > 0)
 				{
-					case NC.UPDATE_OBSERVERS:
-						state = buffer;
-						notifyObservers();
-						break;
+					// Reads client byte stream
+					byte[] input = tryReadDataStream(length);
+					// Creates a ByteBuffer of data only (offsets first byte)
+					ByteBuffer buffer = ByteBuffer.wrap(input, 1, length - 1);
 
-					case NC.CHANGE_NAME:
-						byte[] name = new byte[buffer.remaining()];
-						buffer.get(buffer.position(), name, 0, buffer.remaining());
-						setName(new String(name));
-						break;
+					// **NOT COMPLETE**
+					// Determines action based on first byte
+					switch (input[0])
+					{
+//						case NC.UPDATE_OBSERVERS:
+//							state = buffer;
+//							notifyObservers();
+//							break;
 
-					case NC.END_SESSION:
-						clientConnected = false;
-						tryWriteDataStream(new byte[]
-						{ NC.END_SESSION });
-						closeConnections();
-						break;
+						case NC.SET_NAME:
+							byte[] name = new byte[buffer.remaining()];
+							buffer.get(buffer.position(), name, 0, buffer.remaining());
+							setName(new String(name));
+							break;
+
+						case NC.END_SESSION:
+							clientConnected = false;
+							tryWriteDataStream(new byte[]
+							{ NC.END_SESSION });
+							closeConnections();
+							break;
+					}
 				}
 			}
+		}
+		// TODO: disconnect client
+		else
+		{
+
 		}
 	}
 
@@ -118,6 +130,41 @@ public class Client extends Subject<ByteBuffer>
 		}
 	}
 
+	// ID
+	// ----------------------------------------
+
+	/**
+	 * Assigns the clients ID
+	 * @param id the ID to assign
+	 */
+	private void setId(short id)
+	{
+		this.id = id;
+	}
+
+	// --------------------
+
+	/**
+	 * Gets the clients ID
+	 * @return the ID of the client
+	 */
+	public short getId()
+	{
+		return id;
+	}
+
+	// MANAGER
+	// ----------------------------------------
+	
+	/**
+	 * Assigns the ClientManager for this client
+	 * @param manager the ClientManager for this client
+	 */
+	private void setManager(ClientManager manager)
+	{
+		this.manager = manager;
+	}
+
 	// INPUT-STREAM
 	// ----------------------------------------
 
@@ -141,29 +188,6 @@ public class Client extends Subject<ByteBuffer>
 		return clientInput;
 	}
 
-	// ID
-	// ----------------------------------------
-	
-	/**
-	 * Assigns the clients ID
-	 * @param id the ID to assign
-	 */
-	private void setId(short id)
-	{
-		this.id = id;
-	}
-	
-	// --------------------
-	
-	/**
-	 * Gets the clients ID
-	 * @return the ID of the client
-	 */
-	public short getId()
-	{
-		return id;
-	}
-	
 	// OUTPUT-STREAM
 	// ----------------------------------------
 

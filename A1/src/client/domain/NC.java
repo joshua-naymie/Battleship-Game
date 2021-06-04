@@ -1,4 +1,4 @@
-package server.domain;
+package client.domain;
 
 //Network Commands **NOT FINISHED**
 public final class NC

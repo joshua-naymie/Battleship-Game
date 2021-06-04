@@ -2,8 +2,10 @@ package server.domain;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
-public class ConnectionManager extends Subject<Client> {
+public class ConnectionManager extends Subject<Socket>
+{
 	private static final int SERVER_PORT = 9992;
 
 	Thread thread;
@@ -16,7 +18,8 @@ public class ConnectionManager extends Subject<Client> {
 	/**
 	 * Constructor for Connection Manager Starts thread immediately
 	 */
-	public ConnectionManager() {
+	public ConnectionManager()
+	{
 		initThread();
 	}
 
@@ -27,14 +30,18 @@ public class ConnectionManager extends Subject<Client> {
 	 * Overrides the run method Initializes server socket and adds new clients
 	 */
 	@Override
-	public void run() {
-		try {
+	public void run()
+	{
+		try
+		{
 			server = new ServerSocket(SERVER_PORT);
 
-			while (!Thread.currentThread().isInterrupted()) {
+			while (!Thread.currentThread().isInterrupted())
+			{
 				addNewClients();
 			}
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			System.out.println("server socket error!!!");
 			e.printStackTrace();
 		}
@@ -46,12 +53,15 @@ public class ConnectionManager extends Subject<Client> {
 	/**
 	 * Waits for client connections, creates a new Client, notifies ClientManager
 	 */
-	private void addNewClients() {
-		try {
-			state = new Client(server.accept());
+	private void addNewClients()
+	{
+		try
+		{
+			state = server.accept();
 
 			notifyObservers();
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			System.out.println("accept new client error!");
 			e.printStackTrace();
 		}

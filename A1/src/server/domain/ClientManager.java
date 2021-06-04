@@ -1,8 +1,11 @@
 package server.domain;
 
+import java.net.Socket;
+import java.net.SocketException;
 import java.util.LinkedList;
 
-public class ClientManager extends Observer {
+public class ClientManager extends Observer
+{
 	ConnectionManager connections = new ConnectionManager();
 	LinkedList<Client> clients = new LinkedList<Client>();
 
@@ -13,7 +16,8 @@ public class ClientManager extends Observer {
 	 * Constructor for ClientManager Creates a ConnectionManager and sets itself as
 	 * an Observer
 	 */
-	public ClientManager() {
+	public ClientManager()
+	{
 		setSubject(connections);
 		connections.addObserver(this);
 	}
@@ -23,22 +27,74 @@ public class ClientManager extends Observer {
 
 	/**
 	 * Overrides the update method Gets a new Client from the ConnectionManager and
-	 * 
 	 * adds it to clients
 	 */
 
 	@Override
-	public void update() {
-		Client newClient = connections.getState();
-		if (newClient == null) {
-			System.out.println("NULL");
-		}
-		// should we put this inside an else? bcz otherwise it will be ran anyways after
-		// we check for null
-		// or we can return; after the first if condition
-		newClient.addObserver(this);
+	public void update()
+	{
+		add(connections.getState(), getNextId());
+	}
 
-		clients.add(newClient);
+	// UPDATE
+	// ----------------------------------------
+
+	/**
+	 * Creates and adds a new client to clients
+	 * @param socket the Socket of the new client
+	 * @param id     the ID of the new client
+	 */
+	private void add(Socket socket, short id)
+	{
+		try
+		{
+			clients.add(new Client(socket, id, this));
+		} catch (SocketException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	// UPDATE
+	// ----------------------------------------
+
+	/**
+	 * Finds the next available ID
+	 * @return returns the next available ID. returns 0 if no id found
+	 */
+	private short getNextId()
+	{
+		boolean idFound = false;
+		short counter = 1;
+
+		while (!idFound && counter < Short.MAX_VALUE)
+		{
+			boolean isValid = true;
+			for (Client client : clients)
+			{
+				if (client.getId() == counter)
+				{
+					isValid = false;
+				}
+			}
+
+			if (isValid)
+			{
+				idFound = true;
+			} else
+			{
+				counter++;
+			}
+		}
+
+		if (idFound)
+		{
+			return counter;
+		} else
+		{
+			return NC.ERROR;
+		}
 	}
 
 	// CLIENT COUNT
@@ -46,10 +102,10 @@ public class ClientManager extends Observer {
 
 	/**
 	 * Gets the number of Clients
-	 * 
 	 * @return the number of Clients
 	 */
-	public int getClientCount() {
+	public int getClientCount()
+	{
 		return clients.size();
 	}
 
@@ -59,15 +115,18 @@ public class ClientManager extends Observer {
 	/**
 	 * Looks for 2 players ready for a match NOT COMPLETE
 	 */
-	public void matchPlayers() {
+	public void matchPlayers()
+	{
 		Client client;
 		Client[] matchedClients = new Client[2];
 		int counter = 0, clientCounter = 0;
 
-		while ((clientCounter < 2) && (counter < clients.size())) {
+		while ((clientCounter < 2) && (counter < clients.size()))
+		{
 			client = clients.get(counter++);
 
-			if (client.isLookingForMatch()) {
+			if (client.isLookingForMatch())
+			{
 				matchedClients[counter++] = client;
 			}
 		}

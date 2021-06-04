@@ -8,7 +8,6 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import client.domain.NetworkC;
 import client.domain.PlayAreaOverlayColor;
 import client.domain.Ship;
 
