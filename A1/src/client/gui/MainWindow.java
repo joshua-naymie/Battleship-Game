@@ -2,9 +2,11 @@ package client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import javax.swing.*;
@@ -40,27 +42,26 @@ public class MainWindow {
 
 			Board meBoard = new Board(true);
 			Board opponentBoard = new Board(false);
-			JPanel playerPanel = new JPanel();
+			JPanel playerPanel = new JPanel(new BorderLayout());
 
-			GridBagConstraints constraints = new GridBagConstraints();
-			constraints.fill = GridBagConstraints.BOTH;
+			JPanel shipPanel = new JPanel();
+			ShipButtonArea ships = new ShipButtonArea(meBoard);
+			shipPanel.add(ships);
+			shipPanel.setLocation(5, 5);
 
-			constraints.gridx = 1;
-			constraints.gridy = 1;
-			constraints.weightx = 0.3;
-			constraints.weighty = 0.3;
+			playerPanel.add(new GameLogoPanel(), BorderLayout.NORTH);
 
-			playerPanel.add(meBoard, constraints);
-			
-			constraints.gridx = 5;
-			playerPanel.add(opponentBoard, constraints);
+			//playerPanel.add(shipPanel, BorderLayout.NORTH);
 
-//			constraints.gridx = 0;
-//			playerPanel.add(new ChatView(), constraints);
+			playerPanel.add(meBoard, BorderLayout.WEST);
 
-			constraints.gridy = 0;
-			constraints.gridx = -6;
-			playerPanel.add(new ShipButtonArea(meBoard), constraints);
+//			constraints.gridx = 2;
+			playerPanel.add(new ChatView(), BorderLayout.CENTER);
+
+//			constraints.gridx = 3;
+			playerPanel.add(opponentBoard, BorderLayout.EAST);
+
+			window.setResizable(true);
 			window.add(playerPanel);
 			window.setVisible(true);
 

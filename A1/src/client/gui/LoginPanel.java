@@ -13,6 +13,7 @@ import javax.swing.border.Border;
 
 import exceptions.UserNameIsNullException;
 import server.domain.Client;
+import server.domain.NC;
 
 public class LoginPanel extends JPanel {
 	/**
@@ -44,7 +45,7 @@ public class LoginPanel extends JPanel {
 	private static BufferedImage backgroundImage;
 
 	private static Font partialFont, bigFont, smallFont;
-	public static Client clientLoggedIn;
+	
 
 	public static boolean isLoggedIn;
 
@@ -199,8 +200,10 @@ public class LoginPanel extends JPanel {
 
 			MainWindow.initWindow();
 			Socket socket = new Socket("127.0.0.1", 9992);
-			clientLoggedIn = new Client(socket);
-			clientLoggedIn.setName(userName);
+			
+//			clientLoggedIn = new Client(socket);
+			//clientLoggedIn.setName(userName);
+			
 
 		}
 	}

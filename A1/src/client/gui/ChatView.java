@@ -24,7 +24,7 @@ public class ChatView extends JPanel {
 	}
 
 	public void createClientGUI() {
-		
+
 //		this.setBounds(400, 300, 500, 700);
 
 		JPanel mainPanel = new JPanel();
@@ -52,11 +52,11 @@ public class ChatView extends JPanel {
 		displayMessage = new JTextArea();
 		displayMessage.setBorder(BorderFactory.createEtchedBorder());
 		displayMessage.setEditable(false);
-//		displayMessage.setBounds(0, 0, 1024, 768);
+		displayMessage.setPreferredSize(new Dimension(300,300));
 		sp.add(receiveLabel, BorderLayout.NORTH);
 		sp.add(displayMessage, BorderLayout.CENTER);
 		mainPanel.add(sp, BorderLayout.CENTER);
-
+		this.add(mainPanel);
 		// this.pack();
 		this.setVisible(true);
 //		frame.add(mainPanel);

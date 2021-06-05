@@ -26,9 +26,9 @@ public class ClientDriver {
 			System.out.println("Socket :" + socket.toString());
 			DataInputStream input = new DataInputStream(socket.getInputStream());
 			DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-			String userName = LoginPanel.clientLoggedIn.getName();
-			System.out.println(LoginPanel.clientLoggedIn.toString());
-			System.out.println("Username " + userName);
+//			String userName = LoginPanel.clientLoggedIn.getName();
+//			System.out.println(LoginPanel.clientLoggedIn.toString());
+			String userName = "Moh";
 			// allocate +1 byte for NC.NAME_CHANGE byte
 			ByteBuffer buffer = ByteBuffer.allocate(1 + userName.getBytes().length);
 			buffer.put(NC.SET_NAME);
