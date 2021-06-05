@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 
 
 
-public class Client extends Subject<byte[]>
+public class Client extends Subject<ByteBuffer>
 {
 	private static final String SOCKET_CLOSED_ERROR = "ERROR: socket is closed!",
 			SOCKET_NULL_ERROR = "ERROR: socket is null!";
@@ -25,8 +25,7 @@ public class Client extends Subject<byte[]>
 	private short id;
 
 	private boolean lookingForMatch = false,
-					clientConnected = true,
-					unreadMessage = false;
+					clientConnected = true;
 
 	// CONSTRUCTOR
 	// ----------------------------------------
@@ -63,19 +62,15 @@ public class Client extends Subject<byte[]>
 
 				if (length > 0)
 				{
-					// Reads client byte stream
-					byte[] message = tryReadDataStream(length);
-					// Creates a ByteBuffer of data only (offsets first byte)
-					ByteBuffer buffer = ByteBuffer.wrap(message);
-					buffer.put(0, BigInteger.valueOf(id).toByteArray());
+					ByteBuffer buffer = ByteBuffer.wrap(tryReadDataStream(length));
 
 					// **NOT COMPLETE**
 					// Determines action based on first byte
-					switch (message[0])
+					switch (buffer.get(0))
 					{
 						case NC.SHIP_PLACEMENT:
-							state = message;
-							unreadMessage = true;
+							buffer.putShort(0, id);
+							state = buffer;
 							notifyObservers();
 							break;
 
@@ -169,10 +164,10 @@ public class Client extends Subject<byte[]>
 	
 	// ----------------------------------------
 	
-	public boolean hasUnreadMessage()
-	{
-		return unreadMessage;
-	}
+//	public boolean hasUnreadMessage()
+//	{
+//		return unreadMessage;
+//	}
 
 	// INPUT-STREAM
 	// ----------------------------------------
