@@ -69,7 +69,7 @@ public class Client extends Subject<ByteBuffer>
 					switch (buffer.get(0))
 					{
 						case NC.SHIP_PLACEMENT:
-							buffer.putShort(0, id);
+							//buffer.putShort(0, id);
 							state = buffer;
 							notifyObservers();
 							break;
@@ -278,7 +278,16 @@ public class Client extends Subject<ByteBuffer>
 
 		return false;
 	}
+	
+	// --------------------
+	
+	public boolean tryWriteToClient(byte message)
+	{
+		return tryWriteToClient(new byte[] { message });
+	}
 
+	// ----------------------------------------
+	
 	/**
 	 * Tries to read the length of the incoming message Returns 0 if an error is
 	 * encountered
