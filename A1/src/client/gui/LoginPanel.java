@@ -81,6 +81,8 @@ public class LoginPanel extends JPanel {
 	private final JTextField[] allTextFields = { username, serverAddress, serverPort };
 
 	private JButton loginButton = new JButton("LAUNCH");
+	
+	private MainWindow window;
 
 	// CONSTRUCTOR
 	// ----------------------------------------
@@ -88,7 +90,7 @@ public class LoginPanel extends JPanel {
 	/**
 	 * Constructor for LoginPanel
 	 */
-	public LoginPanel() {
+	public LoginPanel(MainWindow window) {
 		initPanels();
 		initComponents();
 		initLayout();
@@ -197,17 +199,18 @@ public class LoginPanel extends JPanel {
 
 			throw new UserNameIsNullException();
 		} else {
-
-			MainWindow.initWindow();
+			window.loginSuccesful(null, userName);
 			Socket socket = new Socket("127.0.0.1", 9992);
 			
 			//DataInputStream input = new DataInputStream(socket.getInputStream());
 			
 			
 			
-			ByteBuffer buffer = ByteBuffer.allocate(1 + userName.getBytes().length);
-			buffer.put(NC.SET_NAME);
-			buffer.put(userName.getBytes());
+//			ByteBuffer buffer = ByteBuffer.allocate(1 + userName.getBytes().length);
+//			buffer.put(NC.SET_NAME);
+//			buffer.put(userName.getBytes());
+			
+			// thatMethod(socket, userName);
 			
 
 		}
