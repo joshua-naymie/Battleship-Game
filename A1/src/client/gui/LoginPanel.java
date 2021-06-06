@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -45,7 +46,6 @@ public class LoginPanel extends JPanel {
 	private static BufferedImage backgroundImage;
 
 	private static Font partialFont, bigFont, smallFont;
-	
 
 	public static boolean isLoggedIn;
 
@@ -201,8 +201,13 @@ public class LoginPanel extends JPanel {
 			MainWindow.initWindow();
 			Socket socket = new Socket("127.0.0.1", 9992);
 			
-//			clientLoggedIn = new Client(socket);
-			//clientLoggedIn.setName(userName);
+			//DataInputStream input = new DataInputStream(socket.getInputStream());
+			
+			
+			
+			ByteBuffer buffer = ByteBuffer.allocate(1 + userName.getBytes().length);
+			buffer.put(NC.SET_NAME);
+			buffer.put(userName.getBytes());
 			
 
 		}

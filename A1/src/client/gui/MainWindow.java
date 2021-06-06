@@ -2,6 +2,7 @@ package client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,7 +18,7 @@ public class MainWindow {
 
 	private static LoginPanel login = new LoginPanel();
 
-	private static final int WINDOW_SIZE_X = 1500, WINDOW_SIZE_Y = 1000;
+	private static final int WINDOW_SIZE_X = 1500, WINDOW_SIZE_Y = 750;
 
 	// ----------------------------------------
 
@@ -43,27 +44,30 @@ public class MainWindow {
 			Board meBoard = new Board(true);
 			Board opponentBoard = new Board(false);
 			JPanel playerPanel = new JPanel(new BorderLayout());
+			// we tried to change the backgroun color to black, but it does not work
+			playerPanel.setBackground(Color.black);
 
 			JPanel shipPanel = new JPanel();
 			ShipButtonArea ships = new ShipButtonArea(meBoard);
 			shipPanel.add(ships);
 			shipPanel.setLocation(5, 5);
 
-			playerPanel.add(new GameLogoPanel(), BorderLayout.NORTH);
+			playerPanel.add(new GameLogoPanel(), BorderLayout.PAGE_START);
 
-			//playerPanel.add(shipPanel, BorderLayout.NORTH);
+			playerPanel.add(shipPanel, BorderLayout.PAGE_END);
 
 			playerPanel.add(meBoard, BorderLayout.WEST);
 
-//			constraints.gridx = 2;
 			playerPanel.add(new ChatView(), BorderLayout.CENTER);
 
-//			constraints.gridx = 3;
 			playerPanel.add(opponentBoard, BorderLayout.EAST);
 
-			window.setResizable(true);
+			window.setResizable(false);
+			
+			
 			window.add(playerPanel);
 			window.setVisible(true);
+			// window.getContentPane().setBackground(Color.black);
 
 		}
 
