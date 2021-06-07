@@ -48,6 +48,8 @@ public class LoginPanel extends JPanel {
 	private static Font partialFont, bigFont, smallFont;
 
 	public static boolean isLoggedIn;
+	
+
 
 	// CLASS CONSTRUCTOR
 	// ----------------------------------------
@@ -75,14 +77,16 @@ public class LoginPanel extends JPanel {
 
 	private final JLabel[] allLabels = { usernameLabel, serverAddressLabel, serverPortLabel };
 
-	private JTextField username = new JTextField(), serverAddress = new JTextField("127.0.0.1"),
+	public static JTextField username = new JTextField(), serverAddress = new JTextField("127.0.0.1"),
 			serverPort = new JTextField("9992");
 
 	private final JTextField[] allTextFields = { username, serverAddress, serverPort };
 
 	private JButton loginButton = new JButton("LAUNCH");
 
-	private MainWindow window;
+	
+	 private static MainWindow window; //= new MainWindow();
+	
 
 	// CONSTRUCTOR
 	// ----------------------------------------
@@ -170,39 +174,33 @@ public class LoginPanel extends JPanel {
 		serverPort.setEditable(false);
 
 		loginButton.setAlignmentX(LEFT_ALIGNMENT);
-		loginButton.addActionListener(new ActionListener() {
+		
+		loginButton.addActionListener(new switchToMainView());
+		/*loginButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				isLoggedIn = true;
-				try {
-					launchGame(username.getText());
-
-				} catch (Exception ex) {
-
-					if (ex instanceof UserNameIsNullException) {
-						JOptionPane.showMessageDialog(null, "Please Enter Your name");
-					}
-
-					// TODO Auto-generated catch block
-
-				}
-
-			}
-		});
+			
+		});*/
 
 	}
+ 
+	
 
-	private void launchGame(String userName) throws UserNameIsNullException, IOException {
+
+	public static void launchGame(String userName) throws UserNameIsNullException, IOException {
 		System.out.println("Launch game");
-
+		
 		if (userName.isEmpty() || userName == null || userName.equals("")) {
 
 			throw new UserNameIsNullException();
 		} else {
+//			window = new MainWindow();
+//			Socket socket = new Socket("127.0.0.1", 9992);
 			System.out.println("logged in successful");
-			Socket socket = new Socket("127.0.0.1", 9992);
-			window.loginSuccesful(socket, userName);
+			window.loginSuccesful();
+			System.out.println("after");
+			
+			
 
 			
 			// DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -275,15 +273,33 @@ public class LoginPanel extends JPanel {
 		g2.drawImage(backgroundImage, 0, 0, size.width, size.height, this);
 	}
 
+	
+		
 }
+//class buttonActionListener implements ActionListener{
+	
 
-//class switchToMainView implements ActionListener {
-//	public boolean isLoggedIn;
-//
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		isLoggedIn = true;
-//
-//	}
-//
-//}
+class switchToMainView implements ActionListener {
+	public boolean isLoggedIn;
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		isLoggedIn = true;
+		try {
+			
+			System.out.println("blaahhhhhh" + LoginPanel.username.getText());
+			LoginPanel.launchGame(LoginPanel.username.getText());
+
+		} catch (Exception ex) {
+
+			if (ex instanceof UserNameIsNullException) {
+				JOptionPane.showMessageDialog(null, "Please Enter Your name");
+			}
+
+			// TODO Auto-generated catch block
+
+		}
+
+	}
+
+}

@@ -19,7 +19,7 @@ public class MainWindow {
 
 	// ----------------------------------------
 
-	public MainWindow() throws IOException {
+	public MainWindow(){
 		initWindow();
 	}
 
@@ -30,7 +30,7 @@ public class MainWindow {
 
 	// make a method for all logic with boolean, no if statement
 
-	public void initWindow() throws IOException {
+	public void initWindow(){
 		window.setLayout(new GridBagLayout());
 		window.setSize(WINDOW_SIZE_X, WINDOW_SIZE_Y);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,18 +38,22 @@ public class MainWindow {
 		window.setLocationRelativeTo(null);
 		window.add(login);
 		window.setVisible(true);
+		GameBoardView gameView = new GameBoardView();
+		window.add(gameView);
+
+
+		
 
 	}
 
-	public void loginSuccesful(Socket socket, String userName) {
+	public void loginSuccesful() {
 		
-		System.out.println("inside loginSuccefull");
+		System.out.println("INSIIIIIIDDDDE");
 		window.remove(login);
 
 		// make a class for this
 
-		GameBoardView gameView = new GameBoardView();
-		window.add(gameView);
+
 
 		
 		

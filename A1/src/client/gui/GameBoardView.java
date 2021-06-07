@@ -7,7 +7,7 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GameBoardView extends JFrame {
+public class GameBoardView extends JPanel {
 
 	/**
 	 * 
@@ -46,7 +46,6 @@ public class GameBoardView extends JFrame {
 		playerPanel.add(opponentBoard, BorderLayout.EAST);
 
 		add(playerPanel);
-		setResizable(false);
 		setVisible(true);
 
 	}
