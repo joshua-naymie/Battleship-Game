@@ -85,7 +85,7 @@ public class LoginPanel extends JPanel {
 	private JButton loginButton = new JButton("LAUNCH");
 
 	
-	 private static MainWindow window; //= new MainWindow();
+	 private MainWindow window;
 	
 
 	// CONSTRUCTOR
@@ -95,6 +95,8 @@ public class LoginPanel extends JPanel {
 	 * Constructor for LoginPanel
 	 */
 	public LoginPanel(MainWindow window) {
+		this.window = window;
+		
 		initPanels();
 		initComponents();
 		initLayout();
@@ -175,7 +177,30 @@ public class LoginPanel extends JPanel {
 
 		loginButton.setAlignmentX(LEFT_ALIGNMENT);
 		
-		loginButton.addActionListener(new switchToMainView());
+		loginButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//				isLoggedIn = true;
+				try {
+					
+					System.out.println("blaahhhhhh" + LoginPanel.username.getText());
+					launchGame(LoginPanel.username.getText());
+		
+				} catch (Exception ex) {
+		
+					if (ex instanceof UserNameIsNullException) {
+						JOptionPane.showMessageDialog(null, "Please Enter Your name");
+					}
+		
+					// TODO Auto-generated catch block
+		
+				}
+				
+			}
+		});
+		
+//		loginButton.addActionListener(new switchToMainView());
 		/*loginButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -187,7 +212,7 @@ public class LoginPanel extends JPanel {
 	
 
 
-	public static void launchGame(String userName) throws UserNameIsNullException, IOException {
+	public void launchGame(String userName) throws UserNameIsNullException, IOException {
 		System.out.println("Launch game");
 		
 		if (userName.isEmpty() || userName == null || userName.equals("")) {
@@ -279,27 +304,27 @@ public class LoginPanel extends JPanel {
 //class buttonActionListener implements ActionListener{
 	
 
-class switchToMainView implements ActionListener {
-	public boolean isLoggedIn;
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		isLoggedIn = true;
-		try {
-			
-			System.out.println("blaahhhhhh" + LoginPanel.username.getText());
-			LoginPanel.launchGame(LoginPanel.username.getText());
-
-		} catch (Exception ex) {
-
-			if (ex instanceof UserNameIsNullException) {
-				JOptionPane.showMessageDialog(null, "Please Enter Your name");
-			}
-
-			// TODO Auto-generated catch block
-
-		}
-
-	}
-
-}
+//class switchToMainView implements ActionListener {
+//	public boolean isLoggedIn;
+//
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		isLoggedIn = true;
+//		try {
+//			
+//			System.out.println("blaahhhhhh" + LoginPanel.username.getText());
+//			LoginPanel.launchGame(LoginPanel.username.getText());
+//
+//		} catch (Exception ex) {
+//
+//			if (ex instanceof UserNameIsNullException) {
+//				JOptionPane.showMessageDialog(null, "Please Enter Your name");
+//			}
+//
+//			// TODO Auto-generated catch block
+//
+//		}
+//
+//	}
+//
+//}

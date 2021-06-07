@@ -31,15 +31,14 @@ public class MainWindow {
 	// make a method for all logic with boolean, no if statement
 
 	public void initWindow(){
-		window.setLayout(new GridBagLayout());
+//		window.setLayout(new GridBagLayout());
 		window.setSize(WINDOW_SIZE_X, WINDOW_SIZE_Y);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setLocationRelativeTo(null);
 		window.add(login);
 		window.setVisible(true);
-		GameBoardView gameView = new GameBoardView();
-		window.add(gameView);
+		
 
 
 		
@@ -51,6 +50,12 @@ public class MainWindow {
 		System.out.println("INSIIIIIIDDDDE");
 		window.remove(login);
 
+		
+		
+		GameBoardView gameView = new GameBoardView();
+		window.add(gameView);
+		
+		window.revalidate();
 		// make a class for this
 
 
