@@ -50,9 +50,11 @@ public class PlayArea extends JPanel {
 
 	private int length = 0;
 
-	private boolean isVertical = true, isValid;
+	private boolean isVertical = true, isValid, opponent;
 
 	private Ship currentShip;
+	
+	private GameBoardView view;
 
 	// CONSTRUCTOR
 	// ----------------------------------------
@@ -60,7 +62,9 @@ public class PlayArea extends JPanel {
 	/**
 	 * Constructor for PlayArea
 	 */
-	public PlayArea(boolean opponent) {
+	public PlayArea(boolean opponent, GameBoardView view) {
+		this.opponent = opponent;
+		this.view = view;
 		initPanel();
 		initMouseControls();
 		initCellGrid(opponent);
@@ -251,21 +255,34 @@ public class PlayArea extends JPanel {
 	/**
 	 * Places a currentShip on the PlayArea if it is a valid placement
 	 */
-	public void placeShip() {
-		if (isValid) {
-			for (PlayAreaCell gridCell : currentSelection) {
-				gridCell.setShip(true);
+	public void cellSelected() {
+		if(opponent)
+		{
+			if (isValid) {
+				for (PlayAreaCell gridCell : currentSelection) {
+					gridCell.setShip(true);
+				}
+
+				try {
+					currentShip.setCells(currentSelection);
+					currentShip.setPlaced(true);
+					
+					view.submitShips();
+
+				} catch (NullPointerException e) {
+					JOptionPane.showMessageDialog(null, "Please choose a ship to place");
+				}
+
 			}
-
-			try {
-				currentShip.setCells(currentSelection);
-				currentShip.setPlaced(true);
-
-			} catch (NullPointerException e) {
-				JOptionPane.showMessageDialog(null, "Please choose a ship to place");
-			}
-
 		}
+		else
+		{
+			if(!currentCell.isHit() && !currentCell.isMiss())
+			{
+				view.takeShot(currentCell.getPosX(), currentCell.getPosY());
+			}
+		}
+		
 	}
 
 	// SET SHIP
@@ -290,7 +307,10 @@ public class PlayArea extends JPanel {
 	 * Checks if current position is valid for ship placement
 	 */
 	private void checkIfValid() {
-		int posX = currentCell.getPosX(), posY = currentCell.getPosY(), endPos, counter = 0;
+		int posX = currentCell.getPosX(),
+			posY = currentCell.getPosY(),
+			endPos,
+			counter = 0;
 
 		// Creates an array of cells to specified length
 		currentSelection = new PlayAreaCell[length];

@@ -88,4 +88,16 @@ public class ShipButtonArea extends JPanel {
 			this.add(shipButton);
 		}
 	}
+	
+	public Ship[] getShips()
+	{
+		Ship[] ships = new Ship[buttons.length];
+		
+		for(int i=0; i<buttons.length; i++)
+		{
+			ships[i] = buttons[i].getShip();
+		}
+		
+		return ships;
+	}
 }

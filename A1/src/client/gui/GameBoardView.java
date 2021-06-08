@@ -4,13 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.nio.ByteBuffer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+
 import client.domain.ConnectionManager;
+import client.domain.NC;
+import client.domain.Ship;
 
 public class GameBoardView extends JPanel {
 
@@ -19,19 +23,27 @@ public class GameBoardView extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private Board playerBoard, opponentBoard;
+	
 	private ConnectionManager connection;
+	
+	private Ship[] allShips;
 	
 	
 	public GameBoardView(ConnectionManager connection) {
 		this.connection = connection;
 		
 		JPanel meAndButtons = new JPanel(new BorderLayout());
-		Board meBoard = new Board(true);
+		Board meBoard = new Board(true, this);
 		meBoard.setPreferredSize(new Dimension(800,500));
 		meBoard.setBackground(Color.black);
-		Board opponentBoard = new Board(false);
+		Board opponentBoard = new Board(false, this);
 		opponentBoard.setPreferredSize(new Dimension(800,500));
 		opponentBoard.setBackground(Color.black);
+		
+		playerBoard = meBoard;
+		this.opponentBoard = opponentBoard;
+		
 		JPanel playerPanel = new JPanel(new BorderLayout());
 		meAndButtons.add(meBoard, BorderLayout.NORTH);
 		
@@ -41,6 +53,7 @@ public class GameBoardView extends JPanel {
 		playerPanel.setBounds(500, 2, 1, 50);
 		JPanel shipPanel = new JPanel();
 		ShipButtonArea ships = new ShipButtonArea(meBoard);
+		allShips = ships.getShips();
 		
 		shipPanel.add(ships);
 		shipPanel.setLayout(new FlowLayout());
@@ -73,5 +86,46 @@ public class GameBoardView extends JPanel {
 
 		add(playerPanel);
 		setVisible(true);
+	}
+	
+	public void submitShips()
+	{
+		boolean shipsPlaced = true;
+		byte[] allCells = new byte[34];
+		int i=0;
+		
+		for (Ship ship : allShips) {
+			if(!ship.isPlaced())
+			{
+				shipsPlaced = false;
+			}
+			
+			PlayAreaCell[] shipCells = ship.getCells();
+			
+			for (PlayAreaCell cell : shipCells)
+			{
+				allCells[i++] = (byte) cell.getPosX();
+				allCells[i++] = (byte) cell.getPosY();
+			}
+		}
+		
+		if(shipsPlaced)
+		{
+			ByteBuffer buffer = ByteBuffer.allocate(1 + allCells.length);
+			buffer.put(NC.SHIP_PLACEMENT);
+			buffer.put(allCells);
+			
+			connection.tryWriteToServer(buffer.array());
+		}
+	}
+	
+	public void takeShot(int posX, int posY)
+	{
+		ByteBuffer buffer = ByteBuffer.allocate(3);
+		buffer.put(NC.CLIENT_SHOT);
+		buffer.put((byte) posX);
+		buffer.put((byte) posY);
+		
+		connection.tryWriteToServer(buffer.array());
 	}
 }

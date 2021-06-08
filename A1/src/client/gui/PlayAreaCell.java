@@ -153,7 +153,7 @@ public class PlayAreaCell extends JPanel {
 	 * origin cell
 	 */
 	public void cellSelected() {
-		playArea.placeShip();
+		playArea.cellSelected();
 	}
 
 	// POS X
@@ -223,6 +223,26 @@ public class PlayAreaCell extends JPanel {
 	 */
 	public boolean hasShip() {
 		return hasShip;
+	}
+	
+	public void setHit(boolean isHit)
+	{
+		this.isHit = isHit;
+	}
+	
+	public boolean isHit()
+	{
+		return isHit;
+	}
+	
+	public void setMiss(boolean isMiss)
+	{
+		this.isMiss = isMiss;
+	}
+	
+	public boolean isMiss()
+	{
+		return isMiss;
 	}
 
 	// GRAPHICS

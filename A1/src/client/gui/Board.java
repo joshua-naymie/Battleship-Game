@@ -55,13 +55,13 @@ public class Board extends JPanel {
 	/**
 	 * Constructor for Board
 	 */
-	public Board(boolean opponent) {
+	public Board(boolean opponent, GameBoardView view) {
 
 		initPanel();
 
 		this.opponent = opponent;
 
-		initComponents();
+		initComponents(view);
 		initGrid();
 
 	}
@@ -87,8 +87,8 @@ public class Board extends JPanel {
 	/**
 	 * Initializes all components to be added to this panel
 	 */
-	private void initComponents() {
-		playArea = new PlayArea(!opponent);
+	private void initComponents(GameBoardView view) {
+		playArea = new PlayArea(!opponent, view);
 
 		// Setup X-grid label [1-10]
 		for (int i = 0; i < GRID_SIZE; i++) {
