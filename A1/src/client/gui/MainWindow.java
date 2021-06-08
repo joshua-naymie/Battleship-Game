@@ -64,17 +64,10 @@ public class MainWindow
 
 		window.remove(login);
 
-		GameBoardView gameView = new GameBoardView();
+		GameBoardView gameView = new GameBoardView(manager);
 		window.add(gameView);
 
 		window.revalidate();
-
-//		try {
-//			DataInputStream input = new DataInputStream(socket.getInputStream());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 }

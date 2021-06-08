@@ -15,16 +15,33 @@ public class ConnectionManager extends Subject<ByteBuffer>
 	
 	private DataOutputStream outputStream;
 	
+	private boolean serverConnected;
+	
 	public ConnectionManager(Socket socket)
 	{
 		setSocket(socket);
+		serverConnected = true;
+		initThread();
 	}
 	
 	@Override
 	public void run()
 	{
-		// TODO Auto-generated method stub
-
+		while(serverConnected)
+		{
+			int length = tryReadLength();
+			
+			ByteBuffer buffer = ByteBuffer.wrap(tryReadDataStream(length));
+			
+			if(length > NC.ERROR)
+			{
+				switch (buffer.get())
+				{
+					case NC.MATCH_STARTED:
+						break;
+				}
+			}
+		}
 	}
 	
 	private void setSocket(Socket socket)
@@ -152,6 +169,7 @@ public class ConnectionManager extends Subject<ByteBuffer>
 		try
 		{
 			outputStream.write(data);
+			outputStream.flush();
 
 			return true;
 		} catch (IOException e)

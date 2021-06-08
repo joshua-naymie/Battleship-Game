@@ -85,8 +85,6 @@ public class Match extends Observer implements Runnable
 		}
 		
 		tryWait();
-		
-		
 	}
 	
 
@@ -106,18 +104,29 @@ public class Match extends Observer implements Runnable
 	
 	private void parseMessage(Client client)
 	{
-		switch(currentPhase)
+		ByteBuffer buffer = client.getState();
+		if(buffer.get() == NC.CHAT_MESSAGE)
 		{
-			case SHIP_PLACEMENT:
-				setShipPlacement(client);
-				break;
-			case PLAYER_TURNS:
-				setPlayerShot(client);
-				break;
-			case GAME_ENDED:
-				break;
-			default:
-				break;
+			byte[] message = new byte[buffer.remaining()];
+			buffer.get(buffer.position(), message, 0, buffer.remaining());
+			
+			System.out.println("CHAT MESSAGE: " + new String(message));
+		}
+		else
+		{
+			switch(currentPhase)
+			{
+				case SHIP_PLACEMENT:
+					setShipPlacement(client);
+					break;
+				case PLAYER_TURNS:
+					setPlayerShot(client);
+					break;
+				case GAME_ENDED:
+					break;
+				default:
+					break;
+			}
 		}
 	}
 

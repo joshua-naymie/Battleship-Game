@@ -8,6 +8,8 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import client.domain.ConnectionManager;
+
 public class GameBoardView extends JPanel {
 
 	/**
@@ -15,7 +17,12 @@ public class GameBoardView extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public GameBoardView() {
+	private ConnectionManager connection;
+	
+	
+	public GameBoardView(ConnectionManager connection) {
+		this.connection = connection;
+		
 		Board meBoard = new Board(true);
 		Board opponentBoard = new Board(false);
 		JPanel playerPanel = new JPanel(new BorderLayout());
@@ -49,8 +56,5 @@ public class GameBoardView extends JPanel {
 
 		add(playerPanel);
 		setVisible(true);
-		
-
 	}
-
 }

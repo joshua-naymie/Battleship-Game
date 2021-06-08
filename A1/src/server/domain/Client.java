@@ -60,13 +60,13 @@ public class Client extends Subject<ByteBuffer>
 				// Get length of client message
 				int length = tryReadLength();
 
-				if (length > 0)
+				if (length > NC.ERROR)
 				{
 					ByteBuffer buffer = ByteBuffer.wrap(tryReadDataStream(length));
 
 					// **NOT COMPLETE**
 					// Determines action based on first byte
-					switch (buffer.get(0))
+					switch (buffer.get())
 					{
 						case NC.SHIP_PLACEMENT:
 							//buffer.putShort(0, id);
@@ -76,7 +76,7 @@ public class Client extends Subject<ByteBuffer>
 
 						case NC.SET_NAME:
 							byte[] name = new byte[buffer.remaining()];
-							buffer.get(1, name, 0, buffer.remaining());
+							buffer.get(buffer.position(), name, 0, buffer.remaining());
 							setName(new String(name));
 							break;
 
@@ -320,7 +320,7 @@ public class Client extends Subject<ByteBuffer>
 	/**
 	 * Attempts to write the length of the outgoing message to the client
 	 * @param length the length of the message about to be sent
-	 * @return returns true if length successfuly sent, false if not
+	 * @return returns true if length successfully sent, false if not
 	 */
 	private boolean tryWriteLength(int length)
 	{
