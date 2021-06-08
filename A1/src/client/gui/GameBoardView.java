@@ -26,8 +26,10 @@ public class GameBoardView extends JPanel {
 		this.connection = connection;
 		
 		Board meBoard = new Board(true);
+		meBoard.setPreferredSize(new Dimension(800,600));
 		meBoard.setBackground(Color.black);
 		Board opponentBoard = new Board(false);
+		opponentBoard.setPreferredSize(new Dimension(800,600));
 		opponentBoard.setBackground(Color.black);
 		JPanel playerPanel = new JPanel(new BorderLayout());
 
@@ -59,6 +61,7 @@ public class GameBoardView extends JPanel {
 		chat.setPreferredSize(new Dimension(100, 100));
 		Border border = BorderFactory.createLineBorder(Color.gray);
 		chat.setBorder(border);
+		
 		chat.setBackground(Color.black);
 		playerPanel.add(chat, BorderLayout.CENTER);
 

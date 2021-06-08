@@ -34,7 +34,8 @@ public class ChatView extends JPanel {
 		
 
 		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BorderLayout(5, 5));
+		
+		mainPanel.setLayout(new BorderLayout(1, 1));
 		Border buttonEdge = BorderFactory.createRaisedBevelBorder();
 
 		// Code block that builds the gui components to send messages
@@ -58,7 +59,7 @@ public class ChatView extends JPanel {
 		disconnect.setBorder(buttonEdge);
 		disconnect.addActionListener(new ButtonListener());
 		disconnect.setEnabled(false);
-		fp.add(disconnect);
+		
 
 		// Code block to display any message sent from the client
 		JPanel sp = new JPanel(new BorderLayout());
@@ -70,6 +71,7 @@ public class ChatView extends JPanel {
 		sp.add(receiveLabel, BorderLayout.NORTH);
 		sp.add(displayMessage, BorderLayout.CENTER);
 		mainPanel.add(sp, BorderLayout.CENTER);
+		mainPanel.add(disconnect, BorderLayout.SOUTH);
 		this.add(mainPanel);
 		// this.pack();
 		this.setVisible(true);

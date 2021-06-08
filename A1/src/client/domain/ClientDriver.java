@@ -8,11 +8,15 @@ import client.gui.LoginPanel;
 import client.gui.MainWindow;
 import server.domain.Client;
 import server.domain.NC;
+import server.domain.Server;
 
 public class ClientDriver {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		MainWindow window = new MainWindow();
+		// delete this later on this is just for convenience so we don't need ot open two programs
+		Server.main(args);
+		
 
 //		Commented section below demonstrates changing client name with server
 
