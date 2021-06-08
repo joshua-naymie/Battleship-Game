@@ -20,28 +20,29 @@ public class GameBoardView extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private ConnectionManager connection;
-	
-	
+
 	public GameBoardView(ConnectionManager connection) {
+//		int freeSpace = getSize().width - this.getPreferredSize().width;
 		this.connection = connection;
 		
 		JPanel meAndButtons = new JPanel(new BorderLayout());
 		Board meBoard = new Board(true);
-		meBoard.setPreferredSize(new Dimension(800,500));
+		meBoard.setPreferredSize(new Dimension(900, 500));
 		meBoard.setBackground(Color.black);
 		Board opponentBoard = new Board(false);
-		opponentBoard.setPreferredSize(new Dimension(800,500));
+		opponentBoard.setPreferredSize(new Dimension(900, 500));
 		opponentBoard.setBackground(Color.black);
+		
 		JPanel playerPanel = new JPanel(new BorderLayout());
 		meAndButtons.add(meBoard, BorderLayout.NORTH);
-		
+
 		playerPanel.setBackground(Color.black);
-		
-		//playerPanel.setLayout(new BorderLayout(2, 2));
-		playerPanel.setBounds(500, 2, 1, 50);
+
+		// playerPanel.setLayout(new BorderLayout(2, 2));
+		//playerPanel.setBounds(500, 2, 1, 50);
 		JPanel shipPanel = new JPanel();
 		ShipButtonArea ships = new ShipButtonArea(meBoard);
-		
+
 		shipPanel.add(ships);
 		shipPanel.setLayout(new FlowLayout());
 		shipPanel.setBackground(Color.black);
@@ -52,7 +53,7 @@ public class GameBoardView extends JPanel {
 		// add meboard to North
 		// add shipButtonArea to Center
 		//
-		//shipPanel.setLocation(5, 5);
+		// shipPanel.setLocation(5, 5);
 		GameLogoPanel game = new GameLogoPanel();
 		game.setBackground(Color.black);
 		playerPanel.add(game, BorderLayout.PAGE_START);
@@ -62,10 +63,10 @@ public class GameBoardView extends JPanel {
 
 		playerPanel.add(meAndButtons, BorderLayout.WEST);
 		ChatView chat = new ChatView();
-		chat.setPreferredSize(new Dimension(200, 200));
+		chat.setPreferredSize(new Dimension(300, 200));
 		Border border = BorderFactory.createLineBorder(Color.gray);
 		chat.setBorder(border);
-		
+
 		chat.setBackground(Color.black);
 		playerPanel.add(chat, BorderLayout.CENTER);
 
