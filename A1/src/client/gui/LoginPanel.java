@@ -16,7 +16,8 @@ import exceptions.UserNameIsNullException;
 import server.domain.Client;
 import server.domain.NC;
 
-public class LoginPanel extends JPanel {
+public class LoginPanel extends JPanel
+{
 	/**
 	 * 
 	 */
@@ -48,21 +49,22 @@ public class LoginPanel extends JPanel {
 	private static Font partialFont, bigFont, smallFont;
 
 	public static boolean isLoggedIn;
-	
-
 
 	// CLASS CONSTRUCTOR
 	// ----------------------------------------
 
-	static {
-		try {
+	static
+	{
+		try
+		{
 			InputStream stream = new BufferedInputStream(new FileInputStream(MILITARY_FONT_DIR));
 			partialFont = Font.createFont(Font.TRUETYPE_FONT, stream);
 			bigFont = partialFont.deriveFont(Font.PLAIN, 84);
 			smallFont = partialFont.deriveFont(Font.PLAIN, 28);
 
 			backgroundImage = ImageIO.read(new FileInputStream(BACKGROUND_IMG_DIR));
-		} catch (FontFormatException | IOException e) {
+		} catch (FontFormatException | IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -75,18 +77,18 @@ public class LoginPanel extends JPanel {
 	private JLabel titleLabel = new JLabel("BATTLESHIP"), usernameLabel = new JLabel("Username:"),
 			serverAddressLabel = new JLabel("Address:"), serverPortLabel = new JLabel("Port:");
 
-	private final JLabel[] allLabels = { usernameLabel, serverAddressLabel, serverPortLabel };
+	private final JLabel[] allLabels =
+	{ usernameLabel, serverAddressLabel, serverPortLabel };
 
-	public static JTextField username = new JTextField(), serverAddress = new JTextField("127.0.0.1"),
+	public JTextField username = new JTextField(), serverAddress = new JTextField("127.0.0.1"),
 			serverPort = new JTextField("9992");
 
-	private final JTextField[] allTextFields = { username, serverAddress, serverPort };
+	private final JTextField[] allTextFields =
+	{ username, serverAddress, serverPort };
 
 	private JButton loginButton = new JButton("LAUNCH");
 
-	
-	 private MainWindow window;
-	
+	private MainWindow window;
 
 	// CONSTRUCTOR
 	// ----------------------------------------
@@ -94,9 +96,10 @@ public class LoginPanel extends JPanel {
 	/**
 	 * Constructor for LoginPanel
 	 */
-	public LoginPanel(MainWindow window) {
+	public LoginPanel(MainWindow window)
+	{
 		this.window = window;
-		
+
 		initPanels();
 		initComponents();
 		initLayout();
@@ -109,7 +112,8 @@ public class LoginPanel extends JPanel {
 	/**
 	 * Configures this panel and all other panels
 	 */
-	private void initPanels() {
+	private void initPanels()
+	{
 		this.setLayout(new GridBagLayout());
 
 		// ----------
@@ -126,7 +130,8 @@ public class LoginPanel extends JPanel {
 	/**
 	 * Initializes and configures all components
 	 */
-	private void initComponents() {
+	private void initComponents()
+	{
 		// Title
 
 		titleLabel.setFont(bigFont);
@@ -135,7 +140,8 @@ public class LoginPanel extends JPanel {
 		// Labels
 		// ----------
 
-		for (JLabel label : allLabels) {
+		for (JLabel label : allLabels)
+		{
 			label.setFont(LABEL_FONT);
 			label.setForeground(LABEL_FONT_COLOR);
 		}
@@ -143,7 +149,8 @@ public class LoginPanel extends JPanel {
 		// TextFields
 		// ----------
 
-		for (JTextField textfield : allTextFields) {
+		for (JTextField textfield : allTextFields)
+		{
 			textfield.setFont(smallFont);
 		}
 
@@ -176,58 +183,61 @@ public class LoginPanel extends JPanel {
 		serverPort.setEditable(false);
 
 		loginButton.setAlignmentX(LEFT_ALIGNMENT);
-		
-		loginButton.addActionListener(new ActionListener() {
-			
+
+		loginButton.addActionListener(new ActionListener()
+		{
+
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 //				isLoggedIn = true;
-				try {
-					
-					System.out.println("blaahhhhhh" + LoginPanel.username.getText());
-					launchGame(LoginPanel.username.getText());
-		
-				} catch (Exception ex) {
-		
-					if (ex instanceof UserNameIsNullException) {
+				try
+				{
+
+					System.out.println("blaahhhhhh" + username.getText());
+					launchGame(username.getText());
+
+				} catch (Exception ex)
+				{
+
+					if (ex instanceof UserNameIsNullException)
+					{
 						JOptionPane.showMessageDialog(null, "Please Enter Your name");
 					}
-		
+
 					// TODO Auto-generated catch block
-		
+
 				}
-				
+
 			}
 		});
-		
-//		loginButton.addActionListener(new switchToMainView());
-		/*loginButton.addActionListener(new ActionListener() {
 
-			@Override
-			
-		});*/
+//		loginButton.addActionListener(new switchToMainView());
+		/*
+		 * loginButton.addActionListener(new ActionListener() {
+		 * 
+		 * @Override
+		 * 
+		 * });
+		 */
 
 	}
- 
-	
 
-
-	public void launchGame(String userName) throws UserNameIsNullException, IOException {
+	public void launchGame(String userName) throws UserNameIsNullException, IOException
+	{
 		System.out.println("Launch game");
-		
-		if (userName.isEmpty() || userName == null || userName.equals("")) {
+
+		if (userName.isEmpty() || userName == null || userName.equals(""))
+		{
 
 			throw new UserNameIsNullException();
-		} else {
+		} else
+		{
 //			window = new MainWindow();
-//			Socket socket = new Socket("127.0.0.1", 9992);
 			System.out.println("logged in successful");
-			window.loginSuccesful();
-			System.out.println("after");
-			
-			
+			window.loginSuccesful(new Socket("127.0.0.1", 9992), userName);
+//			System.out.println("after");
 
-			
 			// DataInputStream input = new DataInputStream(socket.getInputStream());
 
 //			ByteBuffer buffer = ByteBuffer.allocate(1 + userName.getBytes().length);
@@ -243,7 +253,8 @@ public class LoginPanel extends JPanel {
 	/**
 	 * Configures the layout and adds all components
 	 */
-	private void initLayout() {
+	private void initLayout()
+	{
 		Box box = Box.createVerticalBox();
 
 		// Title
@@ -289,7 +300,8 @@ public class LoginPanel extends JPanel {
 	 * Overrides the paintComponent method to include a background image
 	 */
 	@Override
-	protected void paintComponent(Graphics g) {
+	protected void paintComponent(Graphics g)
+	{
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
@@ -298,11 +310,8 @@ public class LoginPanel extends JPanel {
 		g2.drawImage(backgroundImage, 0, 0, size.width, size.height, this);
 	}
 
-	
-		
 }
 //class buttonActionListener implements ActionListener{
-	
 
 //class switchToMainView implements ActionListener {
 //	public boolean isLoggedIn;

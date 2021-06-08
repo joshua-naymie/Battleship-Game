@@ -7,10 +7,12 @@ import java.nio.ByteBuffer;
 
 import javax.swing.*;
 
+import client.domain.ConnectionManager;
 import server.domain.NC;
 
 //**NOT FINISHED**
-public class MainWindow {
+public class MainWindow
+{
 	private JFrame window = new JFrame();
 
 	private LoginPanel login = new LoginPanel(this);
@@ -19,7 +21,8 @@ public class MainWindow {
 
 	// ----------------------------------------
 
-	public MainWindow(){
+	public MainWindow()
+	{
 		initWindow();
 	}
 
@@ -30,7 +33,8 @@ public class MainWindow {
 
 	// make a method for all logic with boolean, no if statement
 
-	public void initWindow(){
+	public void initWindow()
+	{
 //		window.setLayout(new GridBagLayout());
 		window.setSize(WINDOW_SIZE_X, WINDOW_SIZE_Y);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,30 +42,27 @@ public class MainWindow {
 		window.setLocationRelativeTo(null);
 		window.add(login);
 		window.setVisible(true);
-		
-
-
-		
-
 	}
 
-	public void loginSuccesful() {
+	public void loginSuccesful(Socket socket, String userName)
+	{
+		ConnectionManager manager = new ConnectionManager(socket);
+		
+		ByteBuffer buffer = ByteBuffer.allocate(1 + userName.getBytes().length);
+		buffer.put(NC.SET_NAME);
+		buffer.put(userName.getBytes());
+		
+		manager.tryWriteToServer(buffer.array());
 		
 		System.out.println("INSIIIIIIDDDDE");
 		window.remove(login);
 
-		
-		
 		GameBoardView gameView = new GameBoardView();
 		window.add(gameView);
-		
+
 		window.revalidate();
 		// make a class for this
 
-
-
-		
-		
 //		try {
 //			DataInputStream input = new DataInputStream(socket.getInputStream());
 //		} catch (IOException e) {

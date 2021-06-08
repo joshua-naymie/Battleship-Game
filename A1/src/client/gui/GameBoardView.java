@@ -18,7 +18,7 @@ public class GameBoardView extends JPanel {
 		Board meBoard = new Board(true);
 		Board opponentBoard = new Board(false);
 		JPanel playerPanel = new JPanel(new BorderLayout());
-		// we tried to change the backgroun color to black, but it does not work
+		// we tried to change the background color to black, but it does not work
 
 		playerPanel.setBackground(Color.black);
 
