@@ -40,7 +40,7 @@ public class ShipButton extends JButton {
 //			this.setIcon(icon);
 			// could not load the icon inside the button
 			this.setIcon(new ImageIcon(ship.getShipLogo()));
-			this.setPreferredSize(new Dimension(250, 30));
+			this.setPreferredSize(new Dimension(100, 30));
 
 		} catch (Exception e) {
 			// TODO: handle exception

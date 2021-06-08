@@ -20,7 +20,7 @@ public class MainWindow
 
 	private LoginPanel login = new LoginPanel(this);
 
-	private static final int WINDOW_SIZE_X = 1500, WINDOW_SIZE_Y = 800;
+	private static final int WINDOW_SIZE_X = 1500, WINDOW_SIZE_Y = 783;
 
 	private JButton disconnect;
 
@@ -47,6 +47,7 @@ public class MainWindow
 		window.setLocationRelativeTo(null);
 		window.add(login);
 		window.setVisible(true);
+		window.setBackground(Color.black);
 
 		// disconnect button
 

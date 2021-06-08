@@ -30,7 +30,7 @@ public class ChatView extends JPanel {
 
 	public void createClientGUI() {
 
-		this.setBounds(5, 5, 100, 100);
+//		this.setBounds(5, 5, 100, 100);
 		
 
 		JPanel mainPanel = new JPanel();
@@ -39,7 +39,7 @@ public class ChatView extends JPanel {
 		Border buttonEdge = BorderFactory.createRaisedBevelBorder();
 
 		// Code block that builds the gui components to send messages
-		JPanel fp = new JPanel(new GridLayout(3, 1));
+		JPanel fp = new JPanel(new GridLayout(3, 2));
 		JLabel sendLabel = new JLabel("Message to Send:");
 		messageToSend = new JTextField();
 		JPanel sendPanel = new JPanel();

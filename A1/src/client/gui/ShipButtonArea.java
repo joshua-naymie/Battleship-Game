@@ -15,7 +15,7 @@ public class ShipButtonArea extends JPanel {
 	// CLASS FIELDS
 	// ----------------------------------------
 
-	private static final Ship[] SHIPS = { new Ship("", 2, "/res/Client/Images/destroyer.png"),
+	private static final Ship[] SHIPS = { new Ship("Destroyer", 2, "/res/Client/Images/destroyer.png"),
 			new Ship("Submarine", 3, "/res/Client/Images/submarine.png"),
 			new Ship("Cruiser", 3, "/res/Client/Images/cruiser.png"),
 			new Ship("Battleship", 4, "/res/Client/Images/battleship.png"),
@@ -48,6 +48,7 @@ public class ShipButtonArea extends JPanel {
 	 */
 	private void initPanel() {
 		this.setLayout(new FlowLayout());
+		this.setBackground(Color.black);
 	}
 
 	// INIT COMPONENTS
