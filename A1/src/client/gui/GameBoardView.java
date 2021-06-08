@@ -2,6 +2,7 @@ package client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
@@ -18,10 +19,11 @@ public class GameBoardView extends JPanel {
 		Board meBoard = new Board(true);
 		Board opponentBoard = new Board(false);
 		JPanel playerPanel = new JPanel(new BorderLayout());
-		// we tried to change the background color to black, but it does not work
 
 		playerPanel.setBackground(Color.black);
-
+		
+		//playerPanel.setLayout(new BorderLayout(2, 2));
+		playerPanel.setBounds(500, 2, 1, 50);
 		JPanel shipPanel = new JPanel();
 		ShipButtonArea ships = new ShipButtonArea(meBoard);
 		shipPanel.add(ships);
@@ -33,7 +35,7 @@ public class GameBoardView extends JPanel {
 		// add meboard to North
 		// add shipButtonArea to Center
 		//
-		shipPanel.setLocation(5, 5);
+		//shipPanel.setLocation(5, 5);
 
 		playerPanel.add(new GameLogoPanel(), BorderLayout.PAGE_START);
 
@@ -47,6 +49,7 @@ public class GameBoardView extends JPanel {
 
 		add(playerPanel);
 		setVisible(true);
+		
 
 	}
 

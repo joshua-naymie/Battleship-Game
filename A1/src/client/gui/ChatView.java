@@ -3,17 +3,22 @@ package client.gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.Socket;
+import java.sql.Date;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import client.domain.Message;
+import client.domain.NC;
 
 public class ChatView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField messageToSend;
 	private JTextArea displayMessage;
-	private JButton send;
+	private JButton send, disconnect;
 
 //	public static void main(String[] args) {
 //		new ChatView();
@@ -25,7 +30,7 @@ public class ChatView extends JPanel {
 
 	public void createClientGUI() {
 
-//		this.setBounds(400, 300, 500, 700);
+		this.setBounds(100, 100, 100, 100);
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout(5, 5));
@@ -46,13 +51,21 @@ public class ChatView extends JPanel {
 		fp.add(sendPanel);
 		mainPanel.add(fp, BorderLayout.NORTH);
 
+		// add a disconnect button to send the NC if the user hits disconnect
+		disconnect = new JButton("Disconnect");
+
+		disconnect.setBorder(buttonEdge);
+		disconnect.addActionListener(new ButtonListener());
+		disconnect.setEnabled(false);
+		fp.add(disconnect);
+
 		// Code block to display any message sent from the client
 		JPanel sp = new JPanel(new BorderLayout());
 		JLabel receiveLabel = new JLabel("Message Board");
 		displayMessage = new JTextArea();
 		displayMessage.setBorder(BorderFactory.createEtchedBorder());
 		displayMessage.setEditable(false);
-		displayMessage.setPreferredSize(new Dimension(300,300));
+		displayMessage.setPreferredSize(new Dimension(300, 300));
 		sp.add(receiveLabel, BorderLayout.NORTH);
 		sp.add(displayMessage, BorderLayout.CENTER);
 		mainPanel.add(sp, BorderLayout.CENTER);
@@ -64,49 +77,22 @@ public class ChatView extends JPanel {
 
 	}
 
-}
+	class ButtonListener implements ActionListener {
 
-class ButtonListener implements ActionListener {
+		// this is what Ali wrote in his code
 
-	// this is what Ali wrote in his code
+		@Override
+		public void actionPerformed(ActionEvent e) {
 
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		if (e.getSource() == connect) {
-//			// if i can get to this button, it means i want to start a new chat session
-//			newSession = true;
-//			connectMe();
-//		}
-//		if (e.getSource() == send) {
-//			Message m = new Message(userName, messageToSend.getText(), new Date());
-//
-//			try {
-//				oos.writeObject(m);
-//				displayMessage.append("Me: " + m.getMsg() + " (" + m.getTimeStamp() + ")\n");
-//				messageToSend.setText("");
-//			} catch (IOException e1) {
-//				e1.printStackTrace();
-//			}
-//		}
-//
-//		if (e.getSource() == disconnect) {
-//			// if i hit this button, it means i want to quit and next time i connect,
-//			// i will need to provide my username again
-//			newSession = true;
-//			Message m = new Message(userName, "has disconnected.", new Date());
-//			try {
-//				oos.writeObject(m);
-//			} catch (IOException e1) {
-//				e1.printStackTrace();
-//			}
-//			disconnectMe();
-//		}
-//	}
+			if (e.getSource() == send) {
+				Message m = new Message(NC.SET_NAME, messageToSend.getText());
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
+				displayMessage.append("Me: " + m.getMsg() + " (" + m.getTimeStamp() + ")\n");
+				messageToSend.setText("");
+			}
+			if(e.getSource() == disconnect) {
+				// send NC to know that we disconnected
+			}
+		}
 	}
-
 }
