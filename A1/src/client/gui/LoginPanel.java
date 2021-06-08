@@ -77,13 +77,13 @@ public class LoginPanel extends JPanel
 	private JLabel titleLabel = new JLabel("BATTLESHIP"), usernameLabel = new JLabel("Username:"),
 			serverAddressLabel = new JLabel("Address:"), serverPortLabel = new JLabel("Port:");
 
-	private final JLabel[] allLabels =
+	public final JLabel[] allLabels =
 	{ usernameLabel, serverAddressLabel, serverPortLabel };
 
 	public JTextField username = new JTextField(), serverAddress = new JTextField("127.0.0.1"),
 			serverPort = new JTextField("9992");
 
-	private final JTextField[] allTextFields =
+	public final JTextField[] allTextFields =
 	{ username, serverAddress, serverPort };
 
 	private JButton loginButton = new JButton("LAUNCH");
@@ -198,11 +198,13 @@ public class LoginPanel extends JPanel
 					launchGame(username.getText());
 
 				} catch (Exception ex)
+					
 				{
-
+					ex.printStackTrace();
 					if (ex instanceof UserNameIsNullException)
 					{
 						JOptionPane.showMessageDialog(null, "Please Enter Your name");
+						ex.printStackTrace();
 					}
 
 					// TODO Auto-generated catch block

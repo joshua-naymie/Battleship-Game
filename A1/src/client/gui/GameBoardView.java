@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import client.domain.ConnectionManager;
 
@@ -24,7 +26,9 @@ public class GameBoardView extends JPanel {
 		this.connection = connection;
 		
 		Board meBoard = new Board(true);
+		meBoard.setBackground(Color.black);
 		Board opponentBoard = new Board(false);
+		opponentBoard.setBackground(Color.black);
 		JPanel playerPanel = new JPanel(new BorderLayout());
 
 		playerPanel.setBackground(Color.black);
@@ -35,6 +39,7 @@ public class GameBoardView extends JPanel {
 		ShipButtonArea ships = new ShipButtonArea(meBoard);
 		shipPanel.add(ships);
 		shipPanel.setLayout(new FlowLayout());
+		shipPanel.setBackground(Color.black);
 		// create another panel
 		// add the parts to this panel
 		// add that panel to the playerPanel
@@ -43,14 +48,19 @@ public class GameBoardView extends JPanel {
 		// add shipButtonArea to Center
 		//
 		//shipPanel.setLocation(5, 5);
-
-		playerPanel.add(new GameLogoPanel(), BorderLayout.PAGE_START);
+		GameLogoPanel game = new GameLogoPanel();
+		game.setBackground(Color.black);
+		playerPanel.add(game, BorderLayout.PAGE_START);
 
 		playerPanel.add(shipPanel, BorderLayout.PAGE_END);
 
 		playerPanel.add(meBoard, BorderLayout.WEST);
-
-		playerPanel.add(new ChatView(), BorderLayout.CENTER);
+		ChatView chat = new ChatView();
+		chat.setPreferredSize(new Dimension(100, 100));
+		Border border = BorderFactory.createLineBorder(Color.gray);
+		chat.setBorder(border);
+		chat.setBackground(Color.black);
+		playerPanel.add(chat, BorderLayout.CENTER);
 
 		playerPanel.add(opponentBoard, BorderLayout.EAST);
 

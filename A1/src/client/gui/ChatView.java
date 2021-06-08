@@ -30,7 +30,8 @@ public class ChatView extends JPanel {
 
 	public void createClientGUI() {
 
-		this.setBounds(100, 100, 100, 100);
+		this.setBounds(5, 5, 100, 100);
+		
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout(5, 5));
@@ -44,7 +45,7 @@ public class ChatView extends JPanel {
 		send = new JButton("Send");
 		send.setBorder(buttonEdge);
 		send.addActionListener(new ButtonListener());
-		send.setEnabled(false);
+		send.setEnabled(true);
 		sendPanel.add(send);
 		fp.add(sendLabel);
 		fp.add(messageToSend);
@@ -87,7 +88,7 @@ public class ChatView extends JPanel {
 			if (e.getSource() == send) {
 				Message m = new Message(NC.SET_NAME, messageToSend.getText());
 
-				displayMessage.append("Me: " + m.getMsg() + " (" + m.getTimeStamp() + ")\n");
+				displayMessage.append(m.getUser() + ": " + m.getMsg() + "\n");
 				messageToSend.setText("");
 			}
 			if(e.getSource() == disconnect) {
