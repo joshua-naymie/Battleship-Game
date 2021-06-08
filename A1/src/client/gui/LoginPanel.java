@@ -221,11 +221,8 @@ public class LoginPanel extends JPanel {
 		} else {
 //			window = new MainWindow();
 //			Socket socket = new Socket("127.0.0.1", 9992);
-			System.out.println("logged in successful");
-			window.loginSuccesful();
-			System.out.println("after");
-			
-			
+
+			window.loginSuccesful(userName);
 
 			
 			// DataInputStream input = new DataInputStream(socket.getInputStream());
