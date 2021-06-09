@@ -59,15 +59,10 @@ public class Match extends Observer implements Runnable
 		
 		for (Client player : players)
 		{
-			System.out.println("ID: " + player.getId());
-			System.out.println("writing ship placement");
 			player.tryWriteToClient(NC.SHIP_PLACEMENT);
 		}
-		System.out.println("placement written");
-		int called = 1;
 		while(boards[PLAYER1] == null || boards[PLAYER2] == null)
 		{
-			System.out.println("waiting for boards: " + called++);
 			tryWait();
 		}
 		
