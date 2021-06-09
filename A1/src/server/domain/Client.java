@@ -378,6 +378,7 @@ public class Client extends Subject<ByteBuffer>
 		try
 		{
 			clientOutput.write(data);
+			clientOutput.flush();
 
 			return true;
 		} catch (IOException e)

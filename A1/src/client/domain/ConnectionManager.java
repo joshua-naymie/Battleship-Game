@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+import client.gui.GameBoardView;
 import server.domain.NC;
 import server.domain.Subject;
 
@@ -15,6 +16,8 @@ public class ConnectionManager extends Subject<ByteBuffer>
 	
 	private DataOutputStream outputStream;
 	
+	private GameBoardView view;
+	
 	private boolean serverConnected;
 	
 	public ConnectionManager(Socket socket)
@@ -24,20 +27,30 @@ public class ConnectionManager extends Subject<ByteBuffer>
 		initThread();
 	}
 	
+	public void setGameBoardView(GameBoardView view)
+	{
+		this.view = view;
+	}
+	
 	@Override
 	public void run()
 	{
 		while(serverConnected)
 		{
-			int length = tryReadLength();
 			
+			
+			int length = tryReadLength();
+			System.out.println("length read");
 			ByteBuffer buffer = ByteBuffer.wrap(tryReadDataStream(length));
 			
 			if(length > NC.ERROR)
 			{
+				System.out.println(buffer.get());
+				buffer.rewind();
 				switch (buffer.get())
 				{
-					case NC.MATCH_STARTED:
+					case NC.SHIP_PLACEMENT:
+						view.setShipPlacement(true);
 						break;
 				}
 			}

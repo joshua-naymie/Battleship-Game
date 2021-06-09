@@ -72,6 +72,8 @@ public class ShipButtonArea extends JPanel {
 					button.buttonClicked();
 				}
 			});
+			
+			button.setEnabled(false);
 
 			buttons[counter++] = button;
 		}

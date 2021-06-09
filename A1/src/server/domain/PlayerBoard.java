@@ -23,7 +23,11 @@ public class PlayerBoard
 	{
 		this.shipCells = shipLocations;
 		
-		Arrays.fill(cellStates, NONE);
+		
+		for (byte[] stateArray : cellStates)
+		{
+			Arrays.fill(stateArray, NONE);
+		}
 	}
 	
 	public void shotTaken(int posX, int posY)

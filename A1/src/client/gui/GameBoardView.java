@@ -35,6 +35,8 @@ public class GameBoardView extends JPanel {
 	public GameBoardView(ConnectionManager connection) {
 		this.connection = connection;
 		
+		this.connection.setGameBoardView(this);
+		
 		JPanel meAndButtons = new JPanel(new BorderLayout());
 		Board meBoard = new Board(true, this);
 		meBoard.setPreferredSize(new Dimension(900, 500));
@@ -42,6 +44,7 @@ public class GameBoardView extends JPanel {
 		Board opponentBoard = new Board(false, this);
 		opponentBoard.setPreferredSize(new Dimension(900, 500));
 		opponentBoard.setBackground(Color.black);
+		opponentBoard.setAlignmentX(TOP_ALIGNMENT);
 		
 		playerBoard = meBoard;
 		this.opponentBoard = opponentBoard;
@@ -92,6 +95,11 @@ public class GameBoardView extends JPanel {
 		setVisible(true);
 	}
 	
+	public void setShipPlacement(boolean isAllowed)
+	{
+		ships.setButtonsEnabled(isAllowed);
+	}
+	
 	public void submitShips()
 	{
 		boolean shipsPlaced = true;
@@ -117,7 +125,7 @@ public class GameBoardView extends JPanel {
 		
 		if(shipsPlaced)
 		{
-			ships.setButtonsEnabled(false);
+			
 			ByteBuffer buffer = ByteBuffer.allocate(1 + allCells.length);
 			buffer.put(NC.SHIP_PLACEMENT);
 			buffer.put(allCells);

@@ -25,7 +25,8 @@ public class Match extends Observer implements Runnable
 	
 	public Match(Client player1, Client player2)
 	{
-		setSubject(player1);
+		player1.addObserver(this);
+		player2.addObserver(this);
 		System.out.println("MATCH STARTED");
 		players[PLAYER1] = player1;
 		players[PLAYER2] = player2;
@@ -47,10 +48,22 @@ public class Match extends Observer implements Runnable
 	{
 		currentPhase = Phase.SHIP_PLACEMENT;
 		
+		try
+		{
+			Thread.sleep(1000);
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		for (Client player : players)
 		{
+			System.out.println("ID: " + player.getId());
+			System.out.println("writing ship placement");
 			player.tryWriteToClient(NC.SHIP_PLACEMENT);
 		}
+		System.out.println("placement written");
 		int called = 1;
 		while(boards[PLAYER1] == null || boards[PLAYER2] == null)
 		{
@@ -107,6 +120,7 @@ public class Match extends Observer implements Runnable
 	
 	private void parseMessage(Client client)
 	{
+		System.out.println("message parsed");
 		ByteBuffer buffer = client.getState();
 		if(buffer.get() == NC.CHAT_MESSAGE)
 		{
@@ -133,7 +147,7 @@ public class Match extends Observer implements Runnable
 		}
 	}
 
-	private void setShipPlacement(Client client)
+	private synchronized void setShipPlacement(Client client)
 	{
 		int player;
 		
@@ -147,6 +161,7 @@ public class Match extends Observer implements Runnable
 		}
 		
 		ByteBuffer message = client.getState();
+		message.rewind();
 		
 		if(message.get() == NC.SHIP_PLACEMENT)
 		{
@@ -163,14 +178,16 @@ public class Match extends Observer implements Runnable
 			boards[player] = new PlayerBoard(shipLocations);
 			
 			notify();
+			System.out.println("notified");
 		}
 		else
 		{
+			System.out.println("not ship placement header");
 			clientError(client, NC.SHIP_PLACEMENT);
 		}
 	}
 
-	private void setPlayerShot(Client client)
+	private synchronized void setPlayerShot(Client client)
 	{
 		if(client.equals(players[currentPlayer]))
 		{
