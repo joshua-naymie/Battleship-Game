@@ -29,7 +29,7 @@ public class ChatView extends JPanel {
 	}
 
 	public void createClientGUI() {
-
+		
 //		this.setBounds(5, 5, 100, 100);
 		
 
@@ -62,12 +62,12 @@ public class ChatView extends JPanel {
 		
 
 		// Code block to display any message sent from the client
-		JPanel sp = new JPanel(new BorderLayout());
+		JPanel sp = new JPanel(new BorderLayout(10,10));
 		JLabel receiveLabel = new JLabel("Message Board");
 		displayMessage = new JTextArea();
 		displayMessage.setBorder(BorderFactory.createEtchedBorder());
 		displayMessage.setEditable(false);
-		displayMessage.setPreferredSize(new Dimension(300, 300));
+		displayMessage.setPreferredSize(new Dimension(250, 750));
 		sp.add(receiveLabel, BorderLayout.NORTH);
 		sp.add(displayMessage, BorderLayout.CENTER);
 		mainPanel.add(sp, BorderLayout.CENTER);
@@ -82,7 +82,7 @@ public class ChatView extends JPanel {
 
 	class ButtonListener implements ActionListener {
 
-		// this is what Ali wrote in his code
+		
 
 		@Override
 		public void actionPerformed(ActionEvent e) {

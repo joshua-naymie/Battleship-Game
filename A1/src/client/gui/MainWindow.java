@@ -43,7 +43,7 @@ public class MainWindow
 //		window.setLayout(new GridBagLayout());
 		window.setSize(WINDOW_SIZE_X, WINDOW_SIZE_Y);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
+		window.setResizable(true);
 		window.setLocationRelativeTo(null);
 		window.add(login);
 		window.setVisible(true);

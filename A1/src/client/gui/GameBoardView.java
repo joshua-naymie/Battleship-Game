@@ -35,26 +35,28 @@ public class GameBoardView extends JPanel {
 		
 		JPanel meAndButtons = new JPanel(new BorderLayout());
 		Board meBoard = new Board(true, this);
-		meBoard.setPreferredSize(new Dimension(800,500));
+		meBoard.setPreferredSize(new Dimension(900, 500));
 		meBoard.setBackground(Color.black);
 		Board opponentBoard = new Board(false, this);
-		opponentBoard.setPreferredSize(new Dimension(800,500));
+		opponentBoard.setPreferredSize(new Dimension(900, 500));
 		opponentBoard.setBackground(Color.black);
 		
 		playerBoard = meBoard;
 		this.opponentBoard = opponentBoard;
 		
+		
 		JPanel playerPanel = new JPanel(new BorderLayout());
 		meAndButtons.add(meBoard, BorderLayout.NORTH);
-		
+
 		playerPanel.setBackground(Color.black);
-		
-		//playerPanel.setLayout(new BorderLayout(2, 2));
-		playerPanel.setBounds(500, 2, 1, 50);
+
+		// playerPanel.setLayout(new BorderLayout(2, 2));
+		//playerPanel.setBounds(500, 2, 1, 50);
 		JPanel shipPanel = new JPanel();
 		ShipButtonArea ships = new ShipButtonArea(meBoard);
-		allShips = ships.getShips();
 		
+		allShips = ships.getShips();
+
 		shipPanel.add(ships);
 		shipPanel.setLayout(new FlowLayout());
 		shipPanel.setBackground(Color.black);
@@ -65,7 +67,7 @@ public class GameBoardView extends JPanel {
 		// add meboard to North
 		// add shipButtonArea to Center
 		//
-		//shipPanel.setLocation(5, 5);
+		// shipPanel.setLocation(5, 5);
 		GameLogoPanel game = new GameLogoPanel();
 		game.setBackground(Color.black);
 		playerPanel.add(game, BorderLayout.PAGE_START);
@@ -75,10 +77,10 @@ public class GameBoardView extends JPanel {
 
 		playerPanel.add(meAndButtons, BorderLayout.WEST);
 		ChatView chat = new ChatView();
-		chat.setPreferredSize(new Dimension(200, 200));
+		chat.setPreferredSize(new Dimension(300, 200));
 		Border border = BorderFactory.createLineBorder(Color.gray);
 		chat.setBorder(border);
-		
+
 		chat.setBackground(Color.black);
 		playerPanel.add(chat, BorderLayout.CENTER);
 
@@ -99,13 +101,15 @@ public class GameBoardView extends JPanel {
 			{
 				shipsPlaced = false;
 			}
-			
-			PlayAreaCell[] shipCells = ship.getCells();
-			
-			for (PlayAreaCell cell : shipCells)
+			else
 			{
-				allCells[i++] = (byte) cell.getPosX();
-				allCells[i++] = (byte) cell.getPosY();
+				PlayAreaCell[] shipCells = ship.getCells();
+				
+				for (PlayAreaCell cell : shipCells)
+				{
+					allCells[i++] = (byte) cell.getPosX();
+					allCells[i++] = (byte) cell.getPosY();
+				}
 			}
 		}
 		
@@ -116,6 +120,7 @@ public class GameBoardView extends JPanel {
 			buffer.put(allCells);
 			
 			connection.tryWriteToServer(buffer.array());
+			System.out.println("SHIPS SENT = " + buffer.array());
 		}
 	}
 	

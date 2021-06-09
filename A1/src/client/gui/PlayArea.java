@@ -256,7 +256,7 @@ public class PlayArea extends JPanel {
 	 * Places a currentShip on the PlayArea if it is a valid placement
 	 */
 	public void cellSelected() {
-		if(opponent)
+		if(!opponent)
 		{
 			if (isValid) {
 				for (PlayAreaCell gridCell : currentSelection) {
@@ -270,6 +270,7 @@ public class PlayArea extends JPanel {
 					view.submitShips();
 
 				} catch (NullPointerException e) {
+					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Please choose a ship to place");
 				}
 
