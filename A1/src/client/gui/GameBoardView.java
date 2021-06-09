@@ -29,6 +29,8 @@ public class GameBoardView extends JPanel {
 	
 	private Ship[] allShips;
 	
+	private ShipButtonArea ships;
+	
 	
 	public GameBoardView(ConnectionManager connection) {
 		this.connection = connection;
@@ -53,7 +55,7 @@ public class GameBoardView extends JPanel {
 		// playerPanel.setLayout(new BorderLayout(2, 2));
 		//playerPanel.setBounds(500, 2, 1, 50);
 		JPanel shipPanel = new JPanel();
-		ShipButtonArea ships = new ShipButtonArea(meBoard);
+		ships = new ShipButtonArea(meBoard);
 		
 		allShips = ships.getShips();
 
@@ -115,6 +117,7 @@ public class GameBoardView extends JPanel {
 		
 		if(shipsPlaced)
 		{
+			ships.disableButtons();
 			ByteBuffer buffer = ByteBuffer.allocate(1 + allCells.length);
 			buffer.put(NC.SHIP_PLACEMENT);
 			buffer.put(allCells);

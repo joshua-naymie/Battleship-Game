@@ -27,6 +27,8 @@ public class PlayArea extends JPanel {
 	private static final int GRID_SIZE = 10;
 
 	private static BufferedImage backgroundImage;
+	
+	private static final Ship DUMMY_SHIP = new Ship("dummy", 0, "");
 
 	// CLASS CONSTRUCTOR
 	// ----------------------------------------
@@ -268,9 +270,10 @@ public class PlayArea extends JPanel {
 					currentShip.setPlaced(true);
 					
 					view.submitShips();
+					setShip(DUMMY_SHIP);
 
 				} catch (NullPointerException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Please choose a ship to place");
 				}
 
