@@ -162,22 +162,19 @@ public class PlayArea extends JPanel {
 
 						@Override
 						public void mousePressed(MouseEvent event) {
-							// send attack here!
-							System.out.println("pressed");
-							PlayAreaCell cell = (PlayAreaCell) event.getSource();
-
-							// the color will depend on the server request, if it was a hit or miss
-							cell.setOriginCell();
+							view.takeShot(currentCell.getPosX(), currentCell.getPosY());
 						}
 
 						@Override
 						public void mouseExited(MouseEvent event) {
-
+							PlayAreaCell cell = (PlayAreaCell) event.getSource();
+							cell.removeOriginCell();
 						}
 
 						@Override
 						public void mouseEntered(MouseEvent event) {
-
+							PlayAreaCell cell = (PlayAreaCell) event.getSource();
+							cell.setOriginCell();
 						}
 
 						@Override

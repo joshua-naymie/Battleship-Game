@@ -100,6 +100,12 @@ public class GameBoardView extends JPanel {
 		ships.setButtonsEnabled(isAllowed);
 	}
 	
+	public void setShotTaking(boolean takeShots)
+	{
+		opponentBoard.setShotTaking(takeShots);
+		System.out.println("shots allowed: " + takeShots);
+	}
+	
 	public void submitShips()
 	{
 		boolean shipsPlaced = true;
@@ -131,7 +137,7 @@ public class GameBoardView extends JPanel {
 			buffer.put(allCells);
 			
 			connection.tryWriteToServer(buffer.array());
-			System.out.println("SHIPS SENT = " + buffer.array());
+			setShipPlacement(false);
 		}
 	}
 	
@@ -143,5 +149,7 @@ public class GameBoardView extends JPanel {
 		buffer.put((byte) posY);
 		
 		connection.tryWriteToServer(buffer.array());
+		
+		setShotTaking(false);
 	}
 }

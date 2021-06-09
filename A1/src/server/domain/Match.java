@@ -70,7 +70,8 @@ public class Match extends Observer implements Runnable
 	
 	private void getPlayerShots()
 	{
-		System.out.println("time for player shots");
+		currentPhase = Phase.PLAYER_TURNS;
+
 		gameIsRunning = true;
 		currentPlayer = PLAYER1;
 		waitingPlayer = PLAYER2;
@@ -187,6 +188,7 @@ public class Match extends Observer implements Runnable
 		if(client.equals(players[currentPlayer]))
 		{
 			ByteBuffer message = client.getState();
+			message.remaining();
 			
 			if(message.get() == NC.CLIENT_SHOT)
 			{

@@ -37,8 +37,6 @@ public class ConnectionManager extends Subject<ByteBuffer>
 	{
 		while(serverConnected)
 		{
-			
-			
 			int length = tryReadLength();
 			System.out.println("length read");
 			ByteBuffer buffer = ByteBuffer.wrap(tryReadDataStream(length));
@@ -52,6 +50,9 @@ public class ConnectionManager extends Subject<ByteBuffer>
 					case NC.SHIP_PLACEMENT:
 						view.setShipPlacement(true);
 						break;
+						
+					case NC.CLIENT_TURN:
+						view.setShotTaking(true);
 				}
 			}
 		}

@@ -177,4 +177,9 @@ public class Board extends JPanel {
 	public void setShip(Ship ship) {
 		playArea.setShip(ship);
 	}
+	
+	public void setShotTaking(boolean takeShot)
+	{
+			playArea.enableShots(takeShot);
+	}
 }
