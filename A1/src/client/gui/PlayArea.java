@@ -28,7 +28,7 @@ public class PlayArea extends JPanel {
 
 	private static BufferedImage backgroundImage;
 	
-	private static final Ship DUMMY_SHIP = new Ship("dummy", 0, "");
+	private static final Ship DUMMY_SHIP = new Ship("dummy", 0, ""), SHOT_SHIP = new Ship("shot", 1, "");
 
 	// CLASS CONSTRUCTOR
 	// ----------------------------------------
@@ -52,7 +52,7 @@ public class PlayArea extends JPanel {
 
 	private int length = 0;
 
-	private boolean isVertical = true, isValid, opponent;
+	private boolean isVertical = true, isValid, opponent, shotsEnabled = false;
 
 	private Ship currentShip;
 	
@@ -281,7 +281,7 @@ public class PlayArea extends JPanel {
 		}
 		else
 		{
-			if(!currentCell.isHit() && !currentCell.isMiss())
+			if(shotsEnabled && !currentCell.isHit() && !currentCell.isMiss())
 			{
 				view.takeShot(currentCell.getPosX(), currentCell.getPosY());
 			}
@@ -384,5 +384,19 @@ public class PlayArea extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(backgroundImage, 0, 0, (int) PANEL_DIMENSIONS.getWidth(), (int) PANEL_DIMENSIONS.getHeight(),
 				this);
+	}
+	
+	public void enableShots(boolean enabled)
+	{
+		shotsEnabled = enabled;
+		if(enabled)
+		{
+			setShip(SHOT_SHIP);
+		}
+		else
+		{
+			setShip(DUMMY_SHIP);
+		}
+		
 	}
 }

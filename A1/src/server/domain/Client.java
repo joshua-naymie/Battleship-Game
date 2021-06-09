@@ -24,7 +24,7 @@ public class Client extends Subject<ByteBuffer>
 
 	private short id;
 
-	private boolean lookingForMatch = false,
+	private boolean lookingForMatch = true,
 					clientConnected = true;
 
 	// CONSTRUCTOR
@@ -68,11 +68,11 @@ public class Client extends Subject<ByteBuffer>
 					// Determines action based on first byte
 					switch (buffer.get())
 					{
-						case NC.SHIP_PLACEMENT:
-							//buffer.putShort(0, id);
-							state = buffer;
-							notifyObservers();
-							break;
+//						case NC.SHIP_PLACEMENT:
+//							//buffer.putShort(0, id);
+//							state = buffer;
+//							notifyObservers();
+//							break;
 
 						case NC.SET_NAME:
 							byte[] name = new byte[buffer.remaining()];
@@ -85,6 +85,12 @@ public class Client extends Subject<ByteBuffer>
 							tryWriteDataStream(new byte[] { NC.END_SESSION });
 							closeConnections();
 							break;
+							
+						default:
+							System.out.println("default called");
+							state = buffer;
+							notifyObservers();
+							
 					}
 				}
 			}

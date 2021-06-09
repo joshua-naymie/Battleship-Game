@@ -14,7 +14,7 @@ public class Server
 		// Temporary solution to keep server running
 		for(;;)
 		{
-			System.out.println("client count: " + manager.getClientCount());
+			//System.out.println("client count: " + manager.getClientCount());
 			Thread.sleep(1000);
 		}
 	}

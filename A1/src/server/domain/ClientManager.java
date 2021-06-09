@@ -49,6 +49,7 @@ public class ClientManager extends Observer
 		try
 		{
 			clients.add(new Client(socket, id, this));
+			matchPlayers();
 		} catch (SocketException e)
 		{
 			// TODO Auto-generated catch block
@@ -127,8 +128,14 @@ public class ClientManager extends Observer
 
 			if (client.isLookingForMatch())
 			{
-				matchedClients[counter++] = client;
+				matchedClients[clientCounter++] = client;
 			}
+		}
+		
+		if(clientCounter == 2)
+		{
+			System.out.println("2 clients matched");
+			Match match = new Match(matchedClients[0], matchedClients[1]);
 		}
 	}
 

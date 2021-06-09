@@ -117,7 +117,7 @@ public class GameBoardView extends JPanel {
 		
 		if(shipsPlaced)
 		{
-			ships.disableButtons();
+			ships.setButtonsEnabled(false);
 			ByteBuffer buffer = ByteBuffer.allocate(1 + allCells.length);
 			buffer.put(NC.SHIP_PLACEMENT);
 			buffer.put(allCells);

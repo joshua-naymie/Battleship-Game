@@ -101,11 +101,11 @@ public class ShipButtonArea extends JPanel {
 		return ships;
 	}
 	
-	public void disableButtons()
+	public void setButtonsEnabled(boolean status)
 	{
 		for (ShipButton button : buttons)
 		{
-			button.setEnabled(false);
+			button.setEnabled(status);
 		}
 	}
 }

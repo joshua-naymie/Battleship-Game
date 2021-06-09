@@ -13,9 +13,9 @@ public class Match extends Observer implements Runnable
 	
 	private static final short PLAYER1 = 0, PLAYER2 = 1;
 	
-	private Client[] players;
+	private Client[] players = new Client[2];
 	
-	private PlayerBoard[] boards;
+	private PlayerBoard[] boards = new PlayerBoard[2];
 	
 	private Phase currentPhase;
 	
@@ -25,7 +25,8 @@ public class Match extends Observer implements Runnable
 	
 	public Match(Client player1, Client player2)
 	{
-		
+		setSubject(player1);
+		System.out.println("MATCH STARTED");
 		players[PLAYER1] = player1;
 		players[PLAYER2] = player2;
 		
@@ -50,9 +51,10 @@ public class Match extends Observer implements Runnable
 		{
 			player.tryWriteToClient(NC.SHIP_PLACEMENT);
 		}
-		
-		while(boards[PLAYER1].equals(null) || boards[PLAYER2].equals(null))
+		int called = 1;
+		while(boards[PLAYER1] == null || boards[PLAYER2] == null)
 		{
+			System.out.println("waiting for boards: " + called++);
 			tryWait();
 		}
 		
@@ -60,6 +62,7 @@ public class Match extends Observer implements Runnable
 	
 	private void getPlayerShots()
 	{
+		System.out.println("time for player shots");
 		gameIsRunning = true;
 		currentPlayer = PLAYER1;
 		waitingPlayer = PLAYER2;
@@ -198,7 +201,7 @@ public class Match extends Observer implements Runnable
 		}
 	}
 	
-	public void tryWait()
+	public synchronized void tryWait()
 	{
 		try
 		{
