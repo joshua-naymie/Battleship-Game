@@ -252,6 +252,7 @@ public class Match extends Observer implements Runnable
 			winningPlayer = currentPlayer;
 			gameIsRunning = false;
 			System.out.println("GAME OVER!!!!");
+		
 		}
 	}
 	
