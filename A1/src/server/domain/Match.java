@@ -148,14 +148,19 @@ public class Match extends Observer implements Runnable
 	
 	private void parseMessage(Client client)
 	{
-		System.out.println("message parsed");
 		ByteBuffer buffer = client.getState();
+		buffer.rewind();
 		if(buffer.get() == NC.CHAT_MESSAGE)
 		{
-			byte[] message = new byte[buffer.remaining()];
-			buffer.get(buffer.position(), message, 0, buffer.remaining());
-			
-			System.out.println("CHAT MESSAGE: " + new String(message));
+			buffer.rewind();
+			if(client.equals(players[PLAYER1]))
+			{
+				players[PLAYER2].tryWriteToClient(buffer.array());
+			}
+			else
+			{
+				players[PLAYER1].tryWriteToClient(buffer.array());
+			}
 		}
 		else
 		{

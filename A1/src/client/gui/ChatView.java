@@ -19,17 +19,18 @@ public class ChatView extends JPanel {
 	private JTextField messageToSend;
 	private JTextArea displayMessage;
 	private JButton send, disconnect;
+	private GameBoardView view;
 
 //	public static void main(String[] args) {
 //		new ChatView();
 //	}
 
-	public ChatView() {
+	public ChatView(GameBoardView view) {
+		this.view = view;
 		createClientGUI();
 	}
 
 	public void createClientGUI() {
-		
 //		this.setBounds(5, 5, 100, 100);
 		
 
@@ -79,6 +80,11 @@ public class ChatView extends JPanel {
 //		frame.setVisible(true);
 
 	}
+	
+	public void recieveChatMessage(String message)
+	{
+		displayMessage.append("Opponent: " + message + "\n");
+	}
 
 	class ButtonListener implements ActionListener {
 
@@ -90,7 +96,8 @@ public class ChatView extends JPanel {
 			if (e.getSource() == send) {
 				Message m = new Message(NC.SET_NAME, messageToSend.getText());
 
-				displayMessage.append(m.getUser() + ": " + m.getMsg() + "\n");
+				displayMessage.append("You: " + m.getMsg() + "\n");
+				view.sendChatMessage(m.getMsg());
 				messageToSend.setText("");
 			}
 			if(e.getSource() == disconnect) {

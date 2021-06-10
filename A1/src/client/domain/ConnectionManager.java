@@ -38,7 +38,6 @@ public class ConnectionManager extends Subject<ByteBuffer>
 		while(serverConnected)
 		{
 			int length = tryReadLength();
-			System.out.println("length read");
 			ByteBuffer buffer = ByteBuffer.wrap(tryReadDataStream(length));
 			
 			if(length > NC.ERROR)
@@ -65,6 +64,13 @@ public class ConnectionManager extends Subject<ByteBuffer>
 						byte[] oboard = new byte[buffer.remaining()];
 						buffer.get(buffer.position(), oboard, 0, buffer.remaining());
 						view.setOpponentBoard(oboard);
+						break;
+						
+					case NC.CHAT_MESSAGE:
+						byte[] message = new byte[buffer.remaining()];
+						
+						buffer.get(buffer.position(), message, 0, buffer.remaining());
+						view.recieveChatMessage(message);
 						break;
 				}
 			}

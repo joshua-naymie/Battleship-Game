@@ -31,6 +31,8 @@ public class GameBoardView extends JPanel {
 	
 	private ShipButtonArea ships;
 	
+	private ChatView chat;
+	
 	
 	public GameBoardView(ConnectionManager connection) {
 		this.connection = connection;
@@ -81,7 +83,7 @@ public class GameBoardView extends JPanel {
 //		playerPanel.add(shipPanel, BorderLayout.PAGE_END);
 
 		playerPanel.add(meAndButtons, BorderLayout.WEST);
-		ChatView chat = new ChatView();
+		chat = new ChatView(this);
 		chat.setPreferredSize(new Dimension(300, 200));
 		Border border = BorderFactory.createLineBorder(Color.gray);
 		chat.setBorder(border);
@@ -162,5 +164,19 @@ public class GameBoardView extends JPanel {
 	public void setOpponentBoard(byte[] board)
 	{
 		opponentBoard.setHitMiss(board);
+	}
+	
+	public void sendChatMessage(String message)
+	{
+		ByteBuffer buffer = ByteBuffer.allocate(1 + message.getBytes().length);
+		buffer.put(NC.CHAT_MESSAGE);
+		buffer.put(message.getBytes());
+		
+		connection.tryWriteToServer(buffer.array());
+	}
+	
+	public void recieveChatMessage(byte[] message)
+	{
+		chat.recieveChatMessage(new String(message));
 	}
 }
