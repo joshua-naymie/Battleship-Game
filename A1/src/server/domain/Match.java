@@ -78,9 +78,41 @@ public class Match extends Observer implements Runnable
 		
 		while(gameIsRunning)
 		{
+			System.out.println("current Player: " + currentPlayer);
 			players[currentPlayer].tryWriteToClient(NC.CLIENT_TURN);
 			tryWait();
 			
+			//----------
+			
+			ByteBuffer buffer = ByteBuffer.allocate(1 + 100);
+			buffer.put(NC.PLAYER_BOARD);
+			buffer.put(boards[currentPlayer].getCellStateData());
+			
+			players[currentPlayer].tryWriteToClient(buffer.array());
+			
+			buffer = ByteBuffer.allocate(1 + 100);
+			buffer.put(NC.OPPONENT_BOARD);
+			buffer.put(boards[waitingPlayer].getCellStateData());
+			
+			players[currentPlayer].tryWriteToClient(buffer.array());
+			
+			//----------
+			
+			buffer = ByteBuffer.allocate(1 + 100);
+			buffer.put(NC.PLAYER_BOARD);
+			buffer.put(boards[waitingPlayer].getCellStateData());
+			
+			players[waitingPlayer].tryWriteToClient(buffer.array());
+			
+			buffer = ByteBuffer.allocate(1 + 100);
+			buffer.put(NC.OPPONENT_BOARD);
+			buffer.put(boards[currentPlayer].getCellStateData());
+			
+			players[waitingPlayer].tryWriteToClient(buffer.array());
+			
+			//----------
+			
+			System.out.println("boards sent");
 			checkGameEnded();
 			
 			short temp = currentPlayer;
@@ -188,7 +220,7 @@ public class Match extends Observer implements Runnable
 		if(client.equals(players[currentPlayer]))
 		{
 			ByteBuffer message = client.getState();
-			message.remaining();
+			message.rewind();
 			
 			if(message.get() == NC.CLIENT_SHOT)
 			{
@@ -197,21 +229,24 @@ public class Match extends Observer implements Runnable
 			}
 			else
 			{
+				System.out.println("NOT A SHOT");
 //				clientError(client, NC.CLIENT_TURN);
 			}
 		}
 		else
 		{
+			System.out.println("WRONG PLAYER");
 			clientError(client, NC.WRONG_TURN);
 		}
 	}
 	
 	private void checkGameEnded()
 	{
-		if(!boards[waitingPlayer].hasShipsLeft())
+		if(boards[waitingPlayer].noShipsLeft())
 		{
 			winningPlayer = currentPlayer;
 			gameIsRunning = false;
+			System.out.println("GAME OVER!!!!");
 		}
 	}
 	

@@ -143,6 +143,7 @@ public class GameBoardView extends JPanel {
 	
 	public void takeShot(int posX, int posY)
 	{
+		System.out.println("Shot - X: " + posX + ", Y: " + posY);
 		ByteBuffer buffer = ByteBuffer.allocate(3);
 		buffer.put(NC.CLIENT_SHOT);
 		buffer.put((byte) posX);
@@ -151,5 +152,15 @@ public class GameBoardView extends JPanel {
 		connection.tryWriteToServer(buffer.array());
 		
 		setShotTaking(false);
+	}
+
+	public void setPlayerBoard(byte[] board)
+	{
+		playerBoard.setHitMiss(board);
+	}
+	
+	public void setOpponentBoard(byte[] board)
+	{
+		opponentBoard.setHitMiss(board);
 	}
 }

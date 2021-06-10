@@ -396,4 +396,25 @@ public class PlayArea extends JPanel {
 		}
 		
 	}
+
+	public void setHitMiss(byte[] board)
+	{
+		int counter = 0;
+		for(int i=0; i<10; i++)
+		{
+			for(int j=0; j<10; j++)
+			{
+				switch(board[counter++])
+				{
+					case 1:
+						gridCells[i][j].setMiss(true);
+						break;
+					case 2:
+						gridCells[i][j].setHit(true);
+						break;
+				}
+			}
+		}
+		repaint();
+	}
 }

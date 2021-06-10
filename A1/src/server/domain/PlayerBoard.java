@@ -48,12 +48,23 @@ public class PlayerBoard
 		}
 	}
 	
-	public byte[][] getCellStates()
+	public byte[] getCellStateData()
 	{
-		return cellStates;
+		byte[] data = new byte[100];
+		
+		int counter = 0;
+		for(int i=0; i<GRID_SIZE; i++)
+		{
+			for(int j=0; j<GRID_SIZE; j++)
+			{
+				data[counter++] = cellStates[i][j];
+			}
+		}
+		
+		return data;
 	}
 	
-	public boolean hasShipsLeft()
+	public boolean noShipsLeft()
 	{
 		return (numOfHits == TOTAL_SHIP_CELLS);
 	}

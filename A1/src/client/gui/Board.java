@@ -182,4 +182,9 @@ public class Board extends JPanel {
 	{
 			playArea.enableShots(takeShot);
 	}
+
+	public void setHitMiss(byte[] board)
+	{
+		playArea.setHitMiss(board);
+	}
 }
