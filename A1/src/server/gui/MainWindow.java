@@ -115,6 +115,7 @@ public class MainWindow {
 		output.setForeground(Color.WHITE);
 		output.setMargin(TEXT_AREA_MARGIN);
 		output.setPreferredSize(OUTPUT_DIMENSION);
+		output.setEditable(false);
 	}
 
 	// INIT LAYOUT

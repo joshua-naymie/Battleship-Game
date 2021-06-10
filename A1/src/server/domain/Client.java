@@ -291,11 +291,15 @@ public class Client extends Subject<ByteBuffer> {
 			// Adds 1s delay so console isn't spammed
 			// e.printStackTrace();
 
-			// option to restart the game
-			JOptionPane.showMessageDialog(null, "game ended!");
+			
+			//let the server know the player has disconnected
+			
+			
+			
+			//JOptionPane.showMessageDialog(null, "game ended!");
 
-			// close the game
-			System.exit(0);
+
+//			System.exit(0);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e1) {
