@@ -20,7 +20,7 @@ public class GameLogoPanel extends JPanel {
 		try {
 			image = ImageIO.read(new File("./res/Client/Images/battleshipLogo.jpg"));
 			JLabel picLabel = new JLabel(new ImageIcon(image));
-			picLabel.setPreferredSize(new Dimension(1800, 180));
+			//picLabel.setPreferredSize(new Dimension(1500, 100));
 			add(picLabel);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

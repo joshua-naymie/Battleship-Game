@@ -44,7 +44,7 @@ public class GameBoardView extends JPanel {
 		meBoard.setPreferredSize(new Dimension(900, 500));
 		meBoard.setBackground(Color.black);
 		Board opponentBoard = new Board(false, this);
-		opponentBoard.setPreferredSize(new Dimension(900, 500));
+		opponentBoard.setPreferredSize(new Dimension(700, 500));
 		opponentBoard.setBackground(Color.black);
 		opponentBoard.setAlignmentX(TOP_ALIGNMENT);
 		
@@ -54,6 +54,7 @@ public class GameBoardView extends JPanel {
 		
 		JPanel playerPanel = new JPanel(new BorderLayout());
 		meAndButtons.add(meBoard, BorderLayout.NORTH);
+		meAndButtons.setPreferredSize(new Dimension(700,550));
 
 		playerPanel.setBackground(Color.black);
 
@@ -77,16 +78,17 @@ public class GameBoardView extends JPanel {
 		// shipPanel.setLocation(5, 5);
 		GameLogoPanel game = new GameLogoPanel();
 		game.setBackground(Color.black);
+		game.setPreferredSize(new Dimension(1300,200));
 		playerPanel.add(game, BorderLayout.PAGE_START);
-
-		meAndButtons.add(shipPanel, BorderLayout.PAGE_END);
+		
+		meAndButtons.add(shipPanel, BorderLayout.CENTER);
 //		playerPanel.add(shipPanel, BorderLayout.PAGE_END);
 
 		playerPanel.add(meAndButtons, BorderLayout.WEST);
 		chat = new ChatView(this);
-		chat.setPreferredSize(new Dimension(300, 200));
-		Border border = BorderFactory.createLineBorder(Color.gray);
-		chat.setBorder(border);
+		chat.setPreferredSize(new Dimension(290, 200));
+//		Border border = BorderFactory.createLineBorder(Color.gray);
+//		chat.setBorder(border);
 
 		chat.setBackground(Color.black);
 		playerPanel.add(chat, BorderLayout.CENTER);

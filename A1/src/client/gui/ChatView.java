@@ -41,13 +41,15 @@ public class ChatView extends JPanel {
 
 		// Code block that builds the gui components to send messages
 		JPanel fp = new JPanel(new GridLayout(3, 2));
-		JLabel sendLabel = new JLabel("Message to Send:");
+		JLabel sendLabel = new JLabel(" Message to Send:");
 		messageToSend = new JTextField();
+		messageToSend.setPreferredSize(new Dimension(200,20));
 		JPanel sendPanel = new JPanel();
 		send = new JButton("Send");
 		send.setBorder(buttonEdge);
 		send.addActionListener(new ButtonListener());
 		send.setEnabled(true);
+		send.setPreferredSize(new Dimension(50,20));
 		sendPanel.add(send);
 		fp.add(sendLabel);
 		fp.add(messageToSend);
@@ -55,7 +57,7 @@ public class ChatView extends JPanel {
 		mainPanel.add(fp, BorderLayout.NORTH);
 
 		// add a disconnect button to send the NC if the user hits disconnect
-		disconnect = new JButton("Disconnect");
+		disconnect = new JButton(" Disconnect");
 
 		disconnect.setBorder(buttonEdge);
 		disconnect.addActionListener(new ButtonListener());
@@ -64,11 +66,11 @@ public class ChatView extends JPanel {
 
 		// Code block to display any message sent from the client
 		JPanel sp = new JPanel(new BorderLayout(10,10));
-		JLabel receiveLabel = new JLabel("Message Board");
+		JLabel receiveLabel = new JLabel("  Message Board");
 		displayMessage = new JTextArea();
 		displayMessage.setBorder(BorderFactory.createEtchedBorder());
 		displayMessage.setEditable(false);
-		displayMessage.setPreferredSize(new Dimension(250, 750));
+		displayMessage.setPreferredSize(new Dimension(300, 750));
 		sp.add(receiveLabel, BorderLayout.NORTH);
 		sp.add(displayMessage, BorderLayout.CENTER);
 		mainPanel.add(sp, BorderLayout.CENTER);
@@ -83,7 +85,7 @@ public class ChatView extends JPanel {
 	
 	public void recieveChatMessage(String message)
 	{
-		displayMessage.append("Opponent: " + message + "\n");
+		displayMessage.append(" Opponent: " + message + "\n");
 	}
 
 	class ButtonListener implements ActionListener {
@@ -96,7 +98,7 @@ public class ChatView extends JPanel {
 			if (e.getSource() == send) {
 				Message m = new Message(NC.SET_NAME, messageToSend.getText());
 
-				displayMessage.append("You: " + m.getMsg() + "\n");
+				displayMessage.append(" You: " + m.getMsg() + "\n");
 				view.sendChatMessage(m.getMsg());
 				messageToSend.setText("");
 			}
