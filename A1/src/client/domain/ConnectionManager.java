@@ -54,6 +54,10 @@ public class ConnectionManager extends Subject<ByteBuffer>
 						view.setShotTaking(true);
 						break;
 						
+					case NC.CLIENT_WAIT:
+						view.setShotTaking(false);
+						break;
+						
 					case NC.PLAYER_BOARD:
 						byte[] pboard = new byte[buffer.remaining()];
 						buffer.get(buffer.position(), pboard, 0, buffer.remaining());
@@ -71,6 +75,18 @@ public class ConnectionManager extends Subject<ByteBuffer>
 						
 						buffer.get(buffer.position(), message, 0, buffer.remaining());
 						view.recieveChatMessage(message);
+						break;
+						
+					case NC.RESET_SHIPS:
+						view.resetShips();
+						break;
+						
+					case NC.CLIENT_LOST:
+						view.rematch(false);
+						break;
+						
+					case NC.CLIENT_WON:
+						view.rematch(true);
 						break;
 				}
 			}

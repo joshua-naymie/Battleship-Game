@@ -406,6 +406,10 @@ public class PlayArea extends JPanel {
 			{
 				switch(board[counter++])
 				{
+					case 0:
+						gridCells[i][j].setMiss(false);
+						gridCells[i][j].setHit(false);
+						break;
 					case 1:
 						gridCells[i][j].setMiss(true);
 						break;

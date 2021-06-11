@@ -9,7 +9,7 @@ public class Server
 		MainWindow window = new MainWindow();
 		
 		
-		ClientManager manager = new ClientManager();
+		ClientManager manager = new ClientManager(window);
 		
 		// Temporary solution to keep server running
 		for(;;)

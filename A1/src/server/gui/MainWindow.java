@@ -8,7 +8,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-public class MainWindow {
+public class MainWindow
+{
 	// CLASS FIELDS
 	// ----------------------------------------
 
@@ -35,11 +36,14 @@ public class MainWindow {
 	// CLASS CONSTRUCTOR
 	// ----------------------------------------
 
-	static {
-		try {
+	static
+	{
+		try
+		{
 			startIcon = new ImageIcon(ImageIO.read(new FileInputStream(START_IMAGE_DIR)));
 			stopIcon = new ImageIcon(ImageIO.read(new FileInputStream(STOP_IMAGE_DIR)));
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 
@@ -51,6 +55,8 @@ public class MainWindow {
 	private JFrame window = new JFrame();
 
 	private JTextArea output = new JTextArea();
+	
+	private JScrollPane scrollArea = new JScrollPane(output);
 
 	private JButton startStopButton = new JButton();
 
@@ -64,7 +70,8 @@ public class MainWindow {
 	/**
 	 * Constructor for MainWindow
 	 */
-	public MainWindow() {
+	public MainWindow()
+	{
 
 		initWindow();
 		initComponents();
@@ -79,7 +86,8 @@ public class MainWindow {
 	/**
 	 * Configures the frame
 	 */
-	private void initWindow() {
+	private void initWindow()
+	{
 		window.setLayout(new GridBagLayout());
 		window.setSize(WINDOW_SIZE_X, WINDOW_SIZE_Y);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,7 +101,8 @@ public class MainWindow {
 	/**
 	 * Initializes and configures all components
 	 */
-	private void initComponents() {
+	private void initComponents()
+	{
 		setStartButtonText();
 		startStopButton.setFocusPainted(false);
 		startStopButton.setIcon(startIcon);
@@ -116,6 +125,11 @@ public class MainWindow {
 		output.setMargin(TEXT_AREA_MARGIN);
 		output.setPreferredSize(OUTPUT_DIMENSION);
 		output.setEditable(false);
+		output.setLineWrap(true);
+		output.setText("Server started...\n");
+		
+		scrollArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollArea.setPreferredSize(OUTPUT_DIMENSION);
 	}
 
 	// INIT LAYOUT
@@ -124,7 +138,8 @@ public class MainWindow {
 	/**
 	 * Configures the layout and adds all components
 	 */
-	private void initLayout() {
+	private void initLayout()
+	{
 		GridBagConstraints windowConstraints = new GridBagConstraints();
 
 		windowConstraints.fill = GridBagConstraints.BOTH;
@@ -149,7 +164,7 @@ public class MainWindow {
 		windowConstraints.weightx = 1;
 		windowConstraints.gridwidth = 2;
 
-		window.add(output, windowConstraints);
+		window.add(scrollArea, windowConstraints);
 	}
 
 	// SET BUTTON TEXT
@@ -159,13 +174,21 @@ public class MainWindow {
 	 * Sets the text for the Start/Stop button depending on whether the server is
 	 * running or not
 	 */
-	private void setStartButtonText() {
-		if (isRunning) {
+	private void setStartButtonText()
+	{
+		if (isRunning)
+		{
 			startStopButton.setIcon(stopIcon);
 			startStopButton.setText(BUTTON_STOP_TEXT);
-		} else {
+		} else
+		{
 			startStopButton.setIcon(startIcon);
 			startStopButton.setText(BUTTON_START_TEXT);
 		}
+	}
+	
+	public void outputMessage(String message)
+	{
+		output.append(message + "\n");
 	}
 }

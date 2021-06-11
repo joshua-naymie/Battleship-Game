@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -107,7 +108,6 @@ public class GameBoardView extends JPanel {
 	public void setShotTaking(boolean takeShots)
 	{
 		opponentBoard.setShotTaking(takeShots);
-		System.out.println("shots allowed: " + takeShots);
 	}
 	
 	public void submitShips()
@@ -147,7 +147,6 @@ public class GameBoardView extends JPanel {
 	
 	public void takeShot(int posX, int posY)
 	{
-		System.out.println("Shot - X: " + posX + ", Y: " + posY);
 		ByteBuffer buffer = ByteBuffer.allocate(3);
 		buffer.put(NC.CLIENT_SHOT);
 		buffer.put((byte) posX);
@@ -155,6 +154,11 @@ public class GameBoardView extends JPanel {
 		
 		connection.tryWriteToServer(buffer.array());
 		
+		setShotTaking(false);
+	}
+	
+	public void clientWait()
+	{
 		setShotTaking(false);
 	}
 
@@ -166,7 +170,7 @@ public class GameBoardView extends JPanel {
 	public void setOpponentBoard(byte[] board)
 	{
 		opponentBoard.setHitMiss(board);
-	}
+	}	
 	
 	public void sendChatMessage(String message)
 	{
@@ -180,5 +184,42 @@ public class GameBoardView extends JPanel {
 	public void recieveChatMessage(byte[] message)
 	{
 		chat.recieveChatMessage(new String(message));
+	}
+	
+	public void resetShips()
+	{
+		for (Ship ship : allShips)
+		{
+			ship.setPlaced(false);
+			ship.setCells(null);
+		}
+	}
+
+	public void rematch(boolean didWin)
+	{
+		String message;
+		if(didWin)
+		{
+			message = "You Won!";
+		}
+		else
+		{
+			message = "You Lost :(";
+		}
+		message += " Do you want to play again?";
+		
+		int input = JOptionPane.showConfirmDialog(this, message, "Match Finished",
+	                JOptionPane.YES_NO_OPTION,
+	                JOptionPane.PLAIN_MESSAGE);
+		System.out.println("rematch = " + input);
+		
+		input++;
+		
+		System.out.println("rematch2 = " + input);
+		ByteBuffer buffer = ByteBuffer.allocate(2);
+		buffer.put(NC.REMATCH);
+		buffer.put((byte) input);
+		
+		connection.tryWriteToServer(buffer.array());
 	}
 }

@@ -66,6 +66,19 @@ public class PlayerBoard
 	
 	public boolean noShipsLeft()
 	{
-		return (numOfHits == TOTAL_SHIP_CELLS);
+		return (numOfHits == 2);//TOTAL_SHIP_CELLS);
+	}
+	
+	public void reset()
+	{
+		for (byte[] stateArray : cellStates)
+		{
+			Arrays.fill(stateArray, NONE);
+		}
+		
+		for (byte[] ship : shipCells)
+		{
+			Arrays.fill(ship, NONE);
+		}
 	}
 }

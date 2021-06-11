@@ -4,10 +4,14 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.LinkedList;
 
+import server.gui.MainWindow;
+
 public class ClientManager extends Observer
 {
 	ConnectionManager connections = new ConnectionManager();
 	LinkedList<Client> clients = new LinkedList<Client>();
+	
+	private MainWindow window;
 
 	// CONSTRUCTOR
 	// ----------------------------------------
@@ -15,9 +19,11 @@ public class ClientManager extends Observer
 	/**
 	 * Constructor for ClientManager Creates a ConnectionManager and sets itself as
 	 * an Observer
+	 * @param window 
 	 */
-	public ClientManager()
+	public ClientManager(MainWindow window)
 	{
+		this.window = window;
 		setSubject(connections);
 		connections.addObserver(this);
 	}
@@ -135,7 +141,7 @@ public class ClientManager extends Observer
 		if(clientCounter == 2)
 		{
 			System.out.println("2 clients matched");
-			Match match = new Match(matchedClients[0], matchedClients[1]);
+			Match match = new Match(matchedClients[0], matchedClients[1], window);
 		}
 	}
 
