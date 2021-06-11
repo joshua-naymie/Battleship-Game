@@ -6,12 +6,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.nio.ByteBuffer;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-
 
 import client.domain.ConnectionManager;
 import client.domain.NC;
@@ -35,7 +31,8 @@ public class GameBoardView extends JPanel {
 	private ChatView chat;
 	
 	
-	public GameBoardView(ConnectionManager connection) {
+	public GameBoardView(ConnectionManager connection) 
+	{
 		this.connection = connection;
 		
 		this.connection.setGameBoardView(this);
@@ -204,18 +201,16 @@ public class GameBoardView extends JPanel {
 		}
 		else
 		{
-			message = "You Lost :(";
+			message = "You Lost :(.";
 		}
 		message += " Do you want to play again?";
 		
 		int input = JOptionPane.showConfirmDialog(this, message, "Match Finished",
 	                JOptionPane.YES_NO_OPTION,
 	                JOptionPane.PLAIN_MESSAGE);
-		System.out.println("rematch = " + input);
 		
 		input++;
 		
-		System.out.println("rematch2 = " + input);
 		ByteBuffer buffer = ByteBuffer.allocate(2);
 		buffer.put(NC.REMATCH);
 		buffer.put((byte) input);

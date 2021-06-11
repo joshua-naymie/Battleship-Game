@@ -147,7 +147,6 @@ public class Match extends Observer implements Runnable
 		while(player1Rematch == 0 || player2Rematch == 0)
 		{
 			tryWait();
-			System.out.println("p1: " + player1Rematch + ", p2: " + player2Rematch);
 		}
 		
 		if(player1Rematch == REMATCH && player2Rematch == REMATCH)
@@ -255,12 +254,10 @@ public class Match extends Observer implements Runnable
 			
 			if(player == PLAYER1)
 			{
-				System.out.println("REMATCH P1: " + rematch);
 				player1Rematch = rematch;
 			}
 			else
 			{
-				System.out.println("REMATCH P2: " + rematch);
 				player2Rematch = rematch;
 			}
 			notify();
