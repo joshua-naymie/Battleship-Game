@@ -203,7 +203,7 @@ public class LoginPanel extends JPanel
 					if (ex instanceof UserNameIsNullException)
 					{
 						JOptionPane.showMessageDialog(null, "Please Enter Your name");
-						ex.printStackTrace();
+//						ex.printStackTrace();
 					}
 
 					// TODO Auto-generated catch block
