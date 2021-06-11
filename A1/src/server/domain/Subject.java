@@ -28,7 +28,7 @@ public abstract class Subject<E> implements Runnable
 	 * Removes an Observer from this Subject
 	 * @param observer the Observer to remove
 	 */
-	public void removeObserver(Observer observer)
+	public synchronized void removeObserver(Observer observer)
 	{
 		observers.remove(observer);
 	}

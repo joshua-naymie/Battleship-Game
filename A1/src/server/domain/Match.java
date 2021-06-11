@@ -60,8 +60,18 @@ public class Match extends Observer implements Runnable
 
 	private void endMatch()
 	{
-		// TODO Auto-generated method stub
+		if(player1Rematch == REMATCH)
+		{
+			players[PLAYER1].setLookingForMatch(true);	
+			players[PLAYER1].removeObserver(this);
+		}
+		else
+		{
+			players[PLAYER2].setLookingForMatch(true);
+			players[PLAYER2].removeObserver(this);
+		}
 		
+		players[PLAYER1].removeObserver(this);
 	}
 
 	private void getShipPlacements()
@@ -156,7 +166,17 @@ public class Match extends Observer implements Runnable
 		}
 		else
 		{
+			initRematch();
 			matchIsRunning = false;
+			
+			if(player1Rematch == QUIT)
+			{
+				players[PLAYER1].disconnectClient();
+			}
+			else
+			{
+				players[PLAYER2].disconnectClient();
+			}
 		}
 	}
 

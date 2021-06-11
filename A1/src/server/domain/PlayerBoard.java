@@ -66,7 +66,7 @@ public class PlayerBoard
 	
 	public boolean noShipsLeft()
 	{
-		return (numOfHits == 2);//TOTAL_SHIP_CELLS);
+		return (numOfHits == TOTAL_SHIP_CELLS);
 	}
 	
 	public void reset()

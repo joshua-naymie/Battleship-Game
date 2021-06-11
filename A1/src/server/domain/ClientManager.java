@@ -55,12 +55,17 @@ public class ClientManager extends Observer
 		try
 		{
 			clients.add(new Client(socket, id, this));
-			matchPlayers();
+//			matchPlayers();
 		} catch (SocketException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void remove(Client client)
+	{
+		clients.remove(client);
 	}
 
 	// UPDATE
@@ -140,7 +145,6 @@ public class ClientManager extends Observer
 		
 		if(clientCounter == 2)
 		{
-			System.out.println("2 clients matched");
 			Match match = new Match(matchedClients[0], matchedClients[1], window);
 		}
 	}

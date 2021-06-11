@@ -194,7 +194,6 @@ public class LoginPanel extends JPanel
 				try
 				{
 
-					System.out.println("blaahhhhhh" + username.getText());
 					launchGame(username.getText());
 
 				} catch (Exception ex)
@@ -227,7 +226,6 @@ public class LoginPanel extends JPanel
 
 	public void launchGame(String userName) throws UserNameIsNullException, IOException
 	{
-		System.out.println("Launch game");
 
 		if (userName.isEmpty() || userName == null || userName.equals(""))
 		{
@@ -235,17 +233,7 @@ public class LoginPanel extends JPanel
 			throw new UserNameIsNullException();
 		} else
 		{
-//			window = new MainWindow();
-			System.out.println("logged in successful");
 			window.loginSuccesful(new Socket("127.0.0.1", 9992), userName);
-
-
-			// DataInputStream input = new DataInputStream(socket.getInputStream());
-
-//			ByteBuffer buffer = ByteBuffer.allocate(1 + userName.getBytes().length);
-//			buffer.put(NC.SET_NAME);
-//			buffer.put(userName.getBytes());
-
 		}
 	}
 
@@ -313,29 +301,3 @@ public class LoginPanel extends JPanel
 	}
 
 }
-//class buttonActionListener implements ActionListener{
-
-//class switchToMainView implements ActionListener {
-//	public boolean isLoggedIn;
-//
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		isLoggedIn = true;
-//		try {
-//			
-//			System.out.println("blaahhhhhh" + LoginPanel.username.getText());
-//			LoginPanel.launchGame(LoginPanel.username.getText());
-//
-//		} catch (Exception ex) {
-//
-//			if (ex instanceof UserNameIsNullException) {
-//				JOptionPane.showMessageDialog(null, "Please Enter Your name");
-//			}
-//
-//			// TODO Auto-generated catch block
-//
-//		}
-//
-//	}
-//
-//}

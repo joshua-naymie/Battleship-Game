@@ -30,12 +30,17 @@ public class GameBoardView extends JPanel {
 	
 	private ChatView chat;
 	
+	private MainWindow window;
 	
-	public GameBoardView(ConnectionManager connection) 
+	
+	public GameBoardView(ConnectionManager connection, MainWindow window) 
 	{
+		this.window = window;
 		this.connection = connection;
 		
 		this.connection.setGameBoardView(this);
+		
+		
 		
 		JPanel meAndButtons = new JPanel(new BorderLayout());
 		Board meBoard = new Board(true, this);
@@ -216,5 +221,16 @@ public class GameBoardView extends JPanel {
 		buffer.put((byte) input);
 		
 		connection.tryWriteToServer(buffer.array());
+		
+		if(input == 2)
+		{
+			endSession();
+		}
+	}
+	
+	public void endSession()
+	{
+		connection.tryCloseConnection();
+		window.closeProgram();
 	}
 }

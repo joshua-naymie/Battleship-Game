@@ -10,12 +10,5 @@ public class Server
 		
 		
 		ClientManager manager = new ClientManager(window);
-		
-		// Temporary solution to keep server running
-		for(;;)
-		{
-			//System.out.println("client count: " + manager.getClientCount());
-			Thread.sleep(1000);
-		}
 	}
 }

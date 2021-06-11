@@ -23,6 +23,8 @@ public class MainWindow
 	private static final int WINDOW_SIZE_X = 1500, WINDOW_SIZE_Y = 783;
 
 	private JButton disconnect;
+	
+	private GameBoardView gameView;
 
 	// ----------------------------------------
 
@@ -49,7 +51,14 @@ public class MainWindow
 		window.setVisible(true);
 		window.setBackground(Color.black);
 
-		// disconnect button
+		window.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent)
+		    {
+		    	gameView.endSession();
+	            System.exit(0);
+		    }
+		});
 
 	}
 	public void loginSuccesful(Socket socket, String userName)
@@ -65,10 +74,15 @@ public class MainWindow
 
 		window.remove(login);
 
-		GameBoardView gameView = new GameBoardView(manager);
+		gameView = new GameBoardView(manager, this);
 		window.add(gameView);
 
 		window.revalidate();
+	}
+	
+	public void closeProgram()
+	{
+		System.exit(0);
 	}
 
 }

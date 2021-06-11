@@ -42,7 +42,6 @@ public class ConnectionManager extends Subject<ByteBuffer>
 			
 			if(length > NC.ERROR)
 			{
-				System.out.println(buffer.get());
 				buffer.rewind();
 				switch (buffer.get())
 				{
@@ -104,7 +103,7 @@ public class ConnectionManager extends Subject<ByteBuffer>
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -147,7 +146,7 @@ public class ConnectionManager extends Subject<ByteBuffer>
 		} catch (IOException e)
 		{
 			// Adds 1s delay so console isn't spammed
-			e.printStackTrace();
+			//e.printStackTrace();
 			try
 			{
 				Thread.sleep(1000);
@@ -176,7 +175,7 @@ public class ConnectionManager extends Subject<ByteBuffer>
 			return true;
 		} catch (IOException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
@@ -199,7 +198,7 @@ public class ConnectionManager extends Subject<ByteBuffer>
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		return new byte[]
@@ -223,10 +222,10 @@ public class ConnectionManager extends Subject<ByteBuffer>
 			return true;
 		} catch (IOException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (NullPointerException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		return false;
@@ -246,7 +245,14 @@ public class ConnectionManager extends Subject<ByteBuffer>
 			socket.close();
 		} catch (IOException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
+	}
+	
+	public void tryCloseConnection()
+	{
+		tryWriteToServer(NC.END_SESSION);
+		
+		closeConnections();
 	}
 }

@@ -62,7 +62,6 @@ public class ConnectionManager extends Subject<Socket>
 			notifyObservers();
 		} catch (IOException e)
 		{
-			System.out.println("accept new client error!");
 			e.printStackTrace();
 		}
 	}
