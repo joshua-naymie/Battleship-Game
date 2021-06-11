@@ -59,20 +59,20 @@ public class ConnectionManager extends Subject<ByteBuffer>
 						
 					case NC.PLAYER_BOARD:
 						byte[] pboard = new byte[buffer.remaining()];
-						buffer.get(buffer.position(), pboard, 0, buffer.remaining());
+						buffer.get(pboard, 0, buffer.remaining());
 						view.setPlayerBoard(pboard);
 						break;
 						
 					case NC.OPPONENT_BOARD:
 						byte[] oboard = new byte[buffer.remaining()];
-						buffer.get(buffer.position(), oboard, 0, buffer.remaining());
+						buffer.get(oboard, 0, buffer.remaining());
 						view.setOpponentBoard(oboard);
 						break;
 						
 					case NC.CHAT_MESSAGE:
 						byte[] message = new byte[buffer.remaining()];
 						
-						buffer.get(buffer.position(), message, 0, buffer.remaining());
+						buffer.get(message, 0, buffer.remaining());
 						view.recieveChatMessage(message);
 						break;
 						

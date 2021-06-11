@@ -44,7 +44,7 @@ public class MainWindow
 	public void initWindow() {
 //		window.setLayout(new GridBagLayout());
 		window.setSize(WINDOW_SIZE_X, WINDOW_SIZE_Y);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(true);
 		window.setLocationRelativeTo(null);
 		window.add(login);
@@ -55,7 +55,14 @@ public class MainWindow
 		    @Override
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent)
 		    {
-		    	gameView.endSession();
+		    	try
+		    	{
+		    		gameView.endSession();
+		    	}
+		    	catch(Exception e)
+		    	{
+		    		
+		    	}
 	            System.exit(0);
 		    }
 		});

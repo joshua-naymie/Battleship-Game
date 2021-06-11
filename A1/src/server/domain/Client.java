@@ -76,7 +76,7 @@ public class Client extends Subject<ByteBuffer>
 
 						case NC.SET_NAME:
 							byte[] name = new byte[buffer.remaining()];
-							buffer.get(buffer.position(), name, 0, buffer.remaining());
+							buffer.get(name, 0, buffer.remaining());
 							setName(new String(name));
 							break;
 
