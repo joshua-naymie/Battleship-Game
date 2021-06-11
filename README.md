@@ -13,8 +13,8 @@ The project is divided into four parts, Client Domain, Server Domain, Server GUI
 
 
 
-To run the server, ....
+To run the server, java -jar Server.jar
 
-To run the game, .....
+To run the game, java -jar Client.jar
 
 
